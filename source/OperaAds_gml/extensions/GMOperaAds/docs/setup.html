@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Setup - GMEXT-OperaAds</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Setup";
+        var mkdocs_page_input_path = "setup.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-OperaAds
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">OperaAds Extension</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Setup</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">OperaAds Extension</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-OperaAds</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Setup</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-OperaAds/edit/master/docs/setup.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="setting-up">Setting Up</h2>
+<p>Import the OperaAds extension folder with all subfolders into your project. Make sure to include the ExtensionCore subdirectory and all of its contents.</p>
+<p><img alt="Extension Assets" src="assets/ext_assets.png" /></p>
+<h2 id="initializing-the-sdk">Initializing the SDK</h2>
+<p>Before displaying ads, you must initialize the Opera Ads SDK. Configure your <strong>Application ID</strong> and <strong>Placement IDs</strong> in the extension options, then initialize early in your game (typically in the Create event of your first room or game controller object):</p>
+<pre class="highlight"><code class="language-gml">// Initialize Opera Ads SDK
+opera_ads_init(function(success, error_message)
+{
+    if (!success)
+    {
+        show_debug_message("Opera Ads init failed: " + string(error_message));
+        return;
+    }
+
+    show_debug_message("Opera Ads initialized successfully!");
+});</code></pre>
+<h2 id="displaying-your-first-ad">Displaying Your First Ad</h2>
+<p>Once the SDK is initialized, you can load and display ads. Here's a simple example of showing a banner ad:</p>
+<pre class="highlight"><code class="language-gml">// Load a banner ad (uses placement ID from extension options)
+opera_ads_banner_load(function(event, error_message)
+{
+    switch (event)
+    {
+        case OperaAdsCallbackEventBanner.Loaded:
+            show_debug_message("Banner loaded");
+            // Show banner at bottom center of screen
+            opera_ads_banner_show(OperaAdsBannerPosition.BottomCenter);
+            break;
+
+        case OperaAdsCallbackEventBanner.Impression:
+            show_debug_message("Banner impression recorded");
+            break;
+
+        case OperaAdsCallbackEventBanner.Clicked:
+            show_debug_message("Banner clicked");
+            break;
+
+        case OperaAdsCallbackEventBanner.LoadFailed:
+            show_debug_message("Banner load failed: " + string(error_message));
+            break;
+    }
+});</code></pre>
+<h2 id="using-custom-placement-ids">Using Custom Placement IDs</h2>
+<p>You can override the default placement IDs configured in the extension options:</p>
+<pre class="highlight"><code class="language-gml">// Set a custom banner placement ID before loading
+opera_ads_banner_set_placement_id("your_custom_banner_id");
+opera_ads_banner_load(function(event, error_message) { /* ... */ });</code></pre>
+<h2 id="extension-configuration">Extension Configuration</h2>
+<p>Before using the extension, configure your Opera Ads credentials in the <strong>Extension Options</strong>:</p>
+<ol>
+<li>Open the <strong>GMOperaAds</strong> extension in your project</li>
+<li>Configure the following options:</li>
+<li><strong>Android Application ID</strong> - Your app ID from the Opera Ads publisher portal</li>
+<li><strong>Android Interstitial</strong> - Placement ID for interstitial ads</li>
+<li><strong>Android Rewarded</strong> - Placement ID for rewarded video ads</li>
+<li><strong>Android Rewarded Interstitial</strong> - Placement ID for rewarded interstitial ads</li>
+<li><strong>Android App Open</strong> - Placement ID for app open ads</li>
+<li><strong>Android Banner</strong> - Placement ID for banner ads</li>
+<li>(Repeat for iOS with corresponding iOS placement IDs)</li>
+</ol>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><strong>Android</strong>: API 24+ (Android 7.0) minimum</li>
+<li><strong>iOS</strong>: iOS 13+ minimum</li>
+<li><strong>Opera Ads Account</strong>: Register at https://doc.adx.opera.com to obtain your Application ID and Placement IDs</li>
+<li><strong>ExtensionCore</strong>: Must be imported alongside the OperaAds extension</li>
+</ul>
+<p>GameMaker will automatically download the required SDK dependencies (via Gradle for Android and CocoaPods for iOS) during the build process.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="home.html" class="btn btn-neutral float-left" title="OperaAds Extension"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="home.html" class="btn btn-neutral float-right" title="OperaAds Extension">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-OperaAds" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="home.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="home.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

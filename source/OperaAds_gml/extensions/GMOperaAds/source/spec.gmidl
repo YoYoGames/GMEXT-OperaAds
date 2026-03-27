@@ -1,0 +1,200 @@
+
+[gml_api]
+module GMOperaAds;
+
+// Functions
+
+[global, bind = typed_gml]
+function opera_ads_init(callback: func): bool;
+
+[global, bind = typed_gml]
+function opera_ads_set_mute(mute: bool): bool;
+
+[global, bind = typed_gml]
+function opera_ads_set_gdpr(consent_string: string, applies: bool): unit;
+
+[global, bind = typed_gml]
+function opera_ads_set_us_privacy(us_privacy: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_set_coppa(coppa: bool): unit;
+
+[global, bind = typed_gml]
+function opera_ads_get_gdpr(): string;
+
+[global, bind = typed_gml]
+function opera_ads_get_gdpr_applies(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_get_us_privacy(): string;
+
+[global, bind = typed_gml]
+function opera_ads_get_coppa(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_interstitial_set_placement_id(placement_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_set_placement_id(placement_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_set_placement_id(placement_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_app_open_set_placement_id(placement_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_banner_set_placement_id(placement_id: string): unit;
+
+
+[global, bind = typed_gml]
+function opera_ads_interstitial_load(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_interstitial_is_ad_valid(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_interstitial_show(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_interstitial_destroy(): bool;
+
+
+
+[global, bind = typed_gml]
+enum OperaAdsCallbackEventInterstitial:uint32
+{
+    Clicked,
+    Displayed,
+    Dismissed,
+    Failed,
+}
+
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_load(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_is_ad_valid(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_show(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_destroy(): bool;
+
+[global, bind = typed_gml]
+enum OperaAdsCallbackEventRewarded:uint32
+{
+    Clicked,
+    Displayed,
+    Dismissed,
+    Failed,
+    Rewarded
+}
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_load(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_is_ad_valid(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_show(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_destroy(): bool;
+
+[global, bind = typed_gml]
+enum OperaAdsCallbackEventRewardedInterstitial:uint32
+{
+    Clicked,
+    Displayed,
+    Dismissed,
+    Failed,
+    Rewarded
+}
+
+
+[global, bind = typed_gml]
+function opera_ads_app_open_enable(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_app_open_disable(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_app_open_is_enabled(): bool;
+
+[global, bind = typed_gml]
+enum OperaAdsCallbackEventAppOpen:uint32
+{
+    Loaded,
+    LoadFailed,
+    Clicked,
+    Displayed,
+    Dismissed,
+    Failed,
+}
+
+
+[global, bind = typed_gml]
+function opera_ads_banner_load(callback: func): unit;
+
+[global, bind = typed_gml]
+function opera_ads_banner_is_ad_valid(): bool;
+
+[global, bind = typed_gml]
+function opera_ads_banner_show([type_hint=`OperaAdsBannerPosition`] position): bool;
+
+[global, bind = typed_gml]
+function opera_ads_banner_move([type_hint=`OperaAdsBannerPosition`] position): bool;
+
+[global, bind = typed_gml]
+function opera_ads_banner_destroy(): bool;
+
+
+[global, bind = typed_gml]
+function opera_ads_banner_hide():bool;
+
+[global, bind = typed_gml]
+function opera_ads_banner_unhide():bool;
+
+[global, bind = typed_gml]
+function opera_ads_banner_is_visible():bool;
+
+[global, bind = typed_gml]
+enum OperaAdsCallbackEventBanner:uint32
+{
+    Loaded,
+    LoadFailed,
+    Impression,
+    Clicked,
+}
+
+[global, bind = typed_gml]
+enum OperaAdsBannerPosition:uint32
+{
+    TopLeft,
+    TopCenter,
+    TopRight,
+    MiddleLeft,
+    MiddleCenter,
+    MiddleRight,
+    BottomLeft,
+    BottomCenter,
+    BottomRight,
+}
+
+
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_set_scene(scene_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_set_reward_ssv_options(user_id: string,custom_data: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_set_scene(scene_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_rewarded_interstitial_set_reward_ssv_options(user_id: string,custom_data: string): unit;

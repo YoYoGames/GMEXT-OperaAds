@@ -1,0 +1,31 @@
+{
+  "$schema": "./extgen.schema.json",
+  "input": "spec.gmidl",
+  "root": "./",
+  "gamemaker": {
+    "wrappers": {
+      "outputFile": "../../../scripts/GMOperaAds_API/GMOperaAds_API.gml"
+    },
+    "extension": {
+      "mode": "patch",
+      "outputFile": "../../../extensions/GMOperaAds/GMOperaAds.yy"
+    },
+    "injectors": { }
+  },
+  "targets": {
+    "windows":{},
+    "macos":{},
+    "linux":{},
+    "android":{
+      "mode": "java"
+    },
+    "ios":{
+      "mode": "objc"
+    }
+  },
+  "extras": {
+    "docs": { 
+      "outputFile": "../../../../../docs/extgen_docs.js"
+    }
+  }
+}

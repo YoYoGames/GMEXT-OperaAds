@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"GMOperaAds_api",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GMOperaAds_api",
+  "parent":{
+    "name":"OperaAds",
+    "path":"folders/OperaAds.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
