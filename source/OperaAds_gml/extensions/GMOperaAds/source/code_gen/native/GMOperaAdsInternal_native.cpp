@@ -26,6 +26,12 @@ GMEXPORT double __EXT_NATIVE__opera_ads_init(char* __arg_buffer, double __arg_bu
     return static_cast<double>(__result);
 }
 
+GMEXPORT double __EXT_NATIVE__opera_ads_is_initialized()
+{
+    auto&& __result = opera_ads_is_initialized();
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__opera_ads_set_mute(double mute)
 {
     auto&& __result = opera_ads_set_mute(static_cast<bool>(mute));
@@ -103,6 +109,12 @@ GMEXPORT double __EXT_NATIVE__opera_ads_app_open_set_placement_id(char* placemen
 GMEXPORT double __EXT_NATIVE__opera_ads_banner_set_placement_id(char* placement_id)
 {
     opera_ads_banner_set_placement_id(placement_id);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__opera_ads_banner_set_auto_refresh(double interval)
+{
+    opera_ads_banner_set_auto_refresh(static_cast<double>(interval));
     return 0;
 }
 
@@ -235,10 +247,13 @@ GMEXPORT double __EXT_NATIVE__opera_ads_banner_load(char* __arg_buffer, double _
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
+    // field: size, type: enum OperaAdsBannerSize
+    gm_enums::OperaAdsBannerSize size = gm::wire::codec::readValue<gm_enums::OperaAdsBannerSize>(__br);
+
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    opera_ads_banner_load(callback);
+    opera_ads_banner_load(size, callback);
     return 0;
 }
 

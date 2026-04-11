@@ -7,6 +7,7 @@
 GMEXPORT double __EXT_NATIVE__GMOperaAds_invocation_handler(char* __ret_buffer, double __ret_buffer_length);
 
 GMEXPORT double __EXT_NATIVE__opera_ads_init(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__opera_ads_is_initialized();
 GMEXPORT double __EXT_NATIVE__opera_ads_set_mute(double mute);
 GMEXPORT double __EXT_NATIVE__opera_ads_set_gdpr(char* consent_string, double applies);
 GMEXPORT double __EXT_NATIVE__opera_ads_set_us_privacy(char* us_privacy);
@@ -20,6 +21,7 @@ GMEXPORT double __EXT_NATIVE__opera_ads_rewarded_set_placement_id(char* placemen
 GMEXPORT double __EXT_NATIVE__opera_ads_rewarded_interstitial_set_placement_id(char* placement_id);
 GMEXPORT double __EXT_NATIVE__opera_ads_app_open_set_placement_id(char* placement_id);
 GMEXPORT double __EXT_NATIVE__opera_ads_banner_set_placement_id(char* placement_id);
+GMEXPORT double __EXT_NATIVE__opera_ads_banner_set_auto_refresh(double interval);
 GMEXPORT double __EXT_NATIVE__opera_ads_interstitial_load(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__opera_ads_interstitial_is_ad_valid();
 GMEXPORT double __EXT_NATIVE__opera_ads_interstitial_show(char* __arg_buffer, double __arg_buffer_length);

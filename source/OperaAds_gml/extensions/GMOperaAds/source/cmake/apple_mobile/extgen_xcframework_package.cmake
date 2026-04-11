@@ -1,4 +1,4 @@
-# cmake/extgen_package_xcframework.cmake
+# Apple mobile: -P script that builds device+simulator slices, creates an .xcframework, and zips it
 
 if(NOT DEFINED PLATFORM)
   message(FATAL_ERROR "PLATFORM must be ios or tvos")
@@ -22,7 +22,6 @@ if(PLATFORM STREQUAL "ios")
   endif()
   set(SDK_DEVICE "iphoneos")
   set(SDK_SIM "iphonesimulator")
-  # Use the defalut in case something goes wrong
   set(_DEFAULT_DROP_DIR "${SRC_DIR}/../iOSSourceFromMac")
 elseif(PLATFORM STREQUAL "tvos")
   if(NOT DEFINED PUBLIC_HEADERS OR PUBLIC_HEADERS STREQUAL "")
@@ -30,7 +29,6 @@ elseif(PLATFORM STREQUAL "tvos")
   endif()
   set(SDK_DEVICE "appletvos")
   set(SDK_SIM "appletvsimulator")
-  # Use the defalut in case something goes wrong
   set(_DEFAULT_DROP_DIR "${SRC_DIR}/../tvOSSourceFromMac")
 else()
   message(FATAL_ERROR "Unknown PLATFORM=${PLATFORM}")
@@ -162,7 +160,7 @@ if(NOT r5 EQUAL 0)
   message(FATAL_ERROR "xcframework create failed")
 endif()
 
-# ---- zip it
+# ---- zip and copy to drop directory
 execute_process(
   COMMAND "${CMAKE_COMMAND}" -E tar "cf" "${OUT_DIR}/${PROJECT_NAME}.zip" --format=zip "${PROJECT_NAME}.xcframework"
   WORKING_DIRECTORY "${OUT_DIR}"

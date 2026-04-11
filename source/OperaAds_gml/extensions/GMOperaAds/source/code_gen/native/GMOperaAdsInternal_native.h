@@ -72,6 +72,15 @@ namespace gm_enums
         BottomRight = 8
     };
 
+    enum class OperaAdsBannerSize : std::uint32_t
+    {
+        Banner = 0,
+        BannerLarge = 1,
+        BannerMREC = 2,
+        BannerLeaderboard = 3,
+        BannerSmart = 4
+    };
+
 }
 
 
@@ -89,6 +98,7 @@ namespace gm::wire::details
 }
 
 bool opera_ads_init(const gm::wire::GMFunction& callback);
+bool opera_ads_is_initialized();
 bool opera_ads_set_mute(bool mute);
 void opera_ads_set_gdpr(std::string_view consent_string, bool applies);
 void opera_ads_set_us_privacy(std::string_view us_privacy);
@@ -102,6 +112,7 @@ void opera_ads_rewarded_set_placement_id(std::string_view placement_id);
 void opera_ads_rewarded_interstitial_set_placement_id(std::string_view placement_id);
 void opera_ads_app_open_set_placement_id(std::string_view placement_id);
 void opera_ads_banner_set_placement_id(std::string_view placement_id);
+void opera_ads_banner_set_auto_refresh(double interval);
 void opera_ads_interstitial_load(const gm::wire::GMFunction& callback);
 bool opera_ads_interstitial_is_ad_valid();
 void opera_ads_interstitial_show(const gm::wire::GMFunction& callback);
@@ -117,7 +128,7 @@ bool opera_ads_rewarded_interstitial_destroy();
 void opera_ads_app_open_enable(const gm::wire::GMFunction& callback);
 bool opera_ads_app_open_disable();
 bool opera_ads_app_open_is_enabled();
-void opera_ads_banner_load(const gm::wire::GMFunction& callback);
+void opera_ads_banner_load(gm_enums::OperaAdsBannerSize size, const gm::wire::GMFunction& callback);
 bool opera_ads_banner_is_ad_valid();
 bool opera_ads_banner_show(gm_enums::OperaAdsBannerPosition position);
 bool opera_ads_banner_move(gm_enums::OperaAdsBannerPosition position);

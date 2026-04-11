@@ -1,4 +1,4 @@
-# cmake/extgen_xcframework.cmake
+# Apple mobile: defines package_ios_xcframework and package_tvos_xcframework CMake targets
 
 if(NOT APPLE)
   return()
@@ -47,7 +47,7 @@ add_custom_target(
     -DEXTGEN_ENABLE_SWIFT:BOOL=${EXTGEN_ENABLE_SWIFT}
     -DEXT_APPLE_DROP_DIR:STRING=${EXT_APPLE_DROP_DIR}
     -DPUBLIC_HEADERS:STRING=${_IOS_HDRS_ESC}
-    -P ${CMAKE_SOURCE_DIR}/cmake/extgen_package_xcframework.cmake
+    -P ${CMAKE_SOURCE_DIR}/cmake/apple_mobile/extgen_xcframework_package.cmake
   VERBATIM
 )
 
@@ -65,6 +65,6 @@ add_custom_target(
     -DEXTGEN_ENABLE_SWIFT:BOOL=${EXTGEN_ENABLE_SWIFT}
     -DEXT_APPLE_DROP_DIR:STRING=${EXT_APPLE_DROP_DIR}
     -DPUBLIC_HEADERS:STRING=${_TVOS_HDRS_ESC}
-    -P ${CMAKE_SOURCE_DIR}/cmake/extgen_package_xcframework.cmake
+    -P ${CMAKE_SOURCE_DIR}/cmake/apple_mobile/extgen_xcframework_package.cmake
   VERBATIM
 )

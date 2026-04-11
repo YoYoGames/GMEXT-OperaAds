@@ -1,0 +1,251 @@
+Opera Ads Extension – Full Documentation
+
+============================================================================
+INITIALIZATION
+============================================================================
+opera_ads_init(callback)
+Initializes the Opera Ads SDK.
+
+Parameters:
+- callback(data)
+    data.success → true/false
+
+Behavior:
+- Android: async result from SDK
+- iOS: immediate success (no failure callback)
+
+Notes:
+- Must be called before any ad operation
+- Call once at app startup
+
+
+============================================================================
+PRIVACY / CONSENT
+============================================================================
+opera_ads_set_gdpr(consent_string, applies)
+
+Sets GDPR consent using IAB TCF string.
+
+Parameters:
+- consent_string → MUST come from a CMP (UMP, OneTrust, etc)
+- applies → true if GDPR applies
+
+IMPORTANT:
+- Do NOT hardcode or fake this string in production
+- This function does NOT ask for consent
+- It only informs the SDK of already obtained consent
+
+Behavior:
+- Stored in:
+    Android → SharedPreferences
+    iOS     → NSUserDefaults
+
+Keys:
+    IABTCF_TCString
+    IABTCF_gdprApplies
+
+
+----------------------------------------------------------------------------
+
+opera_ads_set_us_privacy(us_privacy_string)
+
+Sets US Privacy (CCPA) string.
+
+Example:
+- "1YNN"
+
+Stored in:
+- IABUSPrivacy_String
+
+
+----------------------------------------------------------------------------
+
+opera_ads_set_coppa(enabled)
+
+Sets COPPA (child-directed mode)
+
+- true → app targets children
+- false → normal mode
+
+
+============================================================================
+GETTERS
+============================================================================
+All getters return persisted values (not cached values)
+
+opera_ads_get_gdpr()
+→ returns GDPR consent string
+
+opera_ads_get_gdpr_applies()
+→ returns true/false
+
+opera_ads_get_us_privacy()
+→ returns US privacy string
+
+opera_ads_get_coppa()
+→ returns COPPA flag
+
+
+============================================================================
+INTERSTITIAL ADS
+============================================================================
+opera_ads_interstitial_load(placement_id, callback)
+Loads interstitial ad
+
+opera_ads_interstitial_show()
+Shows ad if valid
+
+opera_ads_interstitial_destroy()
+Destroys ad
+
+opera_ads_interstitial_is_ad_valid()
+Returns true when:
+- ad exists
+- loaded
+- ready to show
+
+
+============================================================================
+REWARDED ADS
+============================================================================
+opera_ads_rewarded_load(placement_id, callback)
+
+opera_ads_rewarded_show()
+
+opera_ads_rewarded_destroy()
+
+opera_ads_rewarded_is_ad_valid()
+
+
+============================================================================
+REWARDED INTERSTITIAL ADS
+============================================================================
+opera_ads_rewarded_interstitial_load(placement_id, callback)
+
+opera_ads_rewarded_interstitial_show()
+
+opera_ads_rewarded_interstitial_destroy()
+
+opera_ads_rewarded_interstitial_is_ad_valid()
+
+
+============================================================================
+APP OPEN ADS
+============================================================================
+opera_ads_app_open_enable(placement_id, callback)
+
+Enables app open ads
+
+Behavior:
+- automatically loads and shows on app resume
+
+
+----------------------------------------------------------------------------
+
+opera_ads_app_open_disable()
+
+Disables app open ads
+
+Behavior:
+- clears placement
+- clears callback
+- destroys cached ad
+- resets state
+
+
+----------------------------------------------------------------------------
+
+opera_ads_app_open_is_enabled()
+
+Returns true if enabled
+
+
+============================================================================
+BANNER ADS
+============================================================================
+opera_ads_banner_load(placement_id, callback)
+
+opera_ads_banner_show()
+
+opera_ads_banner_hide()
+
+opera_ads_banner_unhide()
+
+opera_ads_banner_move(x, y)
+
+opera_ads_banner_destroy()
+
+opera_ads_banner_is_ad_valid()
+
+Returns true when:
+- banner exists
+- banner loaded
+
+
+============================================================================
+CALLBACK EVENTS
+============================================================================
+All ad types use the same events:
+
+Loaded
+LoadFailed
+Displayed
+Clicked
+Dismissed
+Failed
+
+Rewarded only:
+Rewarded
+
+
+Example:
+
+function callback(data)
+{
+    switch(data.event)
+    {
+        case OperaAdsEvent.Loaded:
+            break;
+
+        case OperaAdsEvent.Rewarded:
+            // give reward
+            break;
+    }
+}
+
+
+============================================================================
+DESIGN NOTES
+============================================================================
+- *_is_ad_valid means:
+    ad exists + loaded + ready
+
+- Privacy system:
+    Android → SharedPreferences
+    iOS     → NSUserDefaults
+
+- SDK reads privacy values automatically
+
+
+============================================================================
+LIMITATIONS
+============================================================================
+- Native Ads not implemented
+- Scene / SSV not exposed (Android-only)
+
+
+============================================================================
+RECOMMENDED FLOW
+============================================================================
+
+opera_ads_set_gdpr(consent_string, true);
+opera_ads_set_us_privacy("1YNN");
+opera_ads_set_coppa(false);
+
+opera_ads_init(function(data)
+{
+    if(data.success)
+    {
+        opera_ads_interstitial_load("placement", callback);
+    }
+});

@@ -791,7 +791,7 @@ namespace gm::wire::details {
         case gm::wire::GMKind::Bool:
             return static_cast<T>(gm::byteio::readLe<std::uint8_t>(bytes) != 0);
         case gm::wire::GMKind::Pointer:
-            return static_cast<T>(gm::byteio::readLe<void*>(bytes));
+            return static_cast<T>(gm::byteio::readLe<std::uintptr_t>(bytes));
         default:
             throw std::runtime_error("GMValue: kind not coercible to scalar");
         }

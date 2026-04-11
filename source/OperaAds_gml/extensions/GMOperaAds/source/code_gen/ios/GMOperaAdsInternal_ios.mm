@@ -4,10 +4,15 @@
 #import "core/GMExtUtils.h"
 #import "GMOperaAdsInternal_ios.h"
 
+#ifdef __cplusplus
+#import "GMOperaAds-Swift.h"
+using namespace GMOperaAds;
+#endif
+
 
 extern "C" const char* extOptGetString(char* _ext, char* _opt);
 
-// Adapter: matches const signature expected by your C++ API
+// Adapter: matches const signature expected by the C++ API
 static const char* ExtOptGetString(const char* ext, const char* opt)
 {
     return extOptGetString(const_cast<char*>(ext), const_cast<char*>(opt));
@@ -40,7 +45,7 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
         SEL sel = method_getName(baseList[i]);
         const char *name = sel_getName(sel);
 
-        // Only inject your extension selectors
+        // Only inject extension selectors (methods prefixed with __EXT_NATIVE__)
         if (!name || strncmp(name, "__EXT_NATIVE__", 13) != 0) continue;
 
         // Add only if subclass doesn't already have it
@@ -60,8 +65,7 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
 
 @interface GMOperaAdsInternal ()
 {
-    gm::runtime::DispatchQueue __dispatch_queue;
-    id<GMOperaAdsInterface> __impl;
+    GMOperaAdsSwift * __impl;
 }@end
 
 
@@ -100,359 +104,277 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
     self = [super init];
     if (self)
     {
-        __impl = (id<GMOperaAdsInterface>)self;
+        #ifdef __cplusplus
+        // Create Swift object once
+        __impl = new GMOperaAdsSwift(GMOperaAdsSwift::init());
+        #endif
     }
     return self;
 }
 - (double)__EXT_NATIVE__opera_ads_init:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+    double __result = __impl->__EXT_SWIFT__opera_ads_init(__arg_buffer, __arg_buffer_length);
+    return __result;
+}
 
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    bool __result = [__impl opera_ads_init:callback];
-
-    return static_cast<double>(__result);
+- (double)__EXT_NATIVE__opera_ads_is_initialized
+{
+    double __result = __impl->__EXT_SWIFT__opera_ads_is_initialized();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_set_mute:(double)mute
 {
-    bool __result = [__impl opera_ads_set_mute:mute];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_set_mute(mute);
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_set_gdpr:(char*)consent_string arg1:(double)applies
 {
-    [__impl opera_ads_set_gdpr:consent_string applies:static_cast<bool>(applies)];
-
+    __impl->__EXT_SWIFT__opera_ads_set_gdpr(consent_string, applies);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_set_us_privacy:(char*)us_privacy
 {
-    [__impl opera_ads_set_us_privacy:us_privacy];
-
+    __impl->__EXT_SWIFT__opera_ads_set_us_privacy(us_privacy);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_set_coppa:(double)coppa
 {
-    [__impl opera_ads_set_coppa:coppa];
-
+    __impl->__EXT_SWIFT__opera_ads_set_coppa(coppa);
     return 0;
 }
 
 - (char*)__EXT_NATIVE__opera_ads_get_gdpr
 {
     static std::string __result;
-    __result = [__impl opera_ads_get_gdpr];
-
+    __result = (std::string)__impl->__EXT_SWIFT__opera_ads_get_gdpr();
     return (char*)__result.c_str();
 }
 
 - (double)__EXT_NATIVE__opera_ads_get_gdpr_applies
 {
-    bool __result = [__impl opera_ads_get_gdpr_applies];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_get_gdpr_applies();
+    return __result;
 }
 
 - (char*)__EXT_NATIVE__opera_ads_get_us_privacy
 {
     static std::string __result;
-    __result = [__impl opera_ads_get_us_privacy];
-
+    __result = (std::string)__impl->__EXT_SWIFT__opera_ads_get_us_privacy();
     return (char*)__result.c_str();
 }
 
 - (double)__EXT_NATIVE__opera_ads_get_coppa
 {
-    bool __result = [__impl opera_ads_get_coppa];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_get_coppa();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_interstitial_set_placement_id:(char*)placement_id
 {
-    [__impl opera_ads_interstitial_set_placement_id:placement_id];
-
+    __impl->__EXT_SWIFT__opera_ads_interstitial_set_placement_id(placement_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_set_placement_id:(char*)placement_id
 {
-    [__impl opera_ads_rewarded_set_placement_id:placement_id];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_set_placement_id(placement_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_set_placement_id:(char*)placement_id
 {
-    [__impl opera_ads_rewarded_interstitial_set_placement_id:placement_id];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_set_placement_id(placement_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_app_open_set_placement_id:(char*)placement_id
 {
-    [__impl opera_ads_app_open_set_placement_id:placement_id];
-
+    __impl->__EXT_SWIFT__opera_ads_app_open_set_placement_id(placement_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_set_placement_id:(char*)placement_id
 {
-    [__impl opera_ads_banner_set_placement_id:placement_id];
+    __impl->__EXT_SWIFT__opera_ads_banner_set_placement_id(placement_id);
+    return 0;
+}
 
+- (double)__EXT_NATIVE__opera_ads_banner_set_auto_refresh:(double)interval
+{
+    __impl->__EXT_SWIFT__opera_ads_banner_set_auto_refresh(interval);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_interstitial_load:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_interstitial_load:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_interstitial_load(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_interstitial_is_ad_valid
 {
-    bool __result = [__impl opera_ads_interstitial_is_ad_valid];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_interstitial_is_ad_valid();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_interstitial_show:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_interstitial_show:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_interstitial_show(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_interstitial_destroy
 {
-    bool __result = [__impl opera_ads_interstitial_destroy];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_interstitial_destroy();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_load:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_rewarded_load:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_load(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_is_ad_valid
 {
-    bool __result = [__impl opera_ads_rewarded_is_ad_valid];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_rewarded_is_ad_valid();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_show:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_rewarded_show:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_show(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_destroy
 {
-    bool __result = [__impl opera_ads_rewarded_destroy];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_rewarded_destroy();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_load:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_rewarded_interstitial_load:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_load(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_is_ad_valid
 {
-    bool __result = [__impl opera_ads_rewarded_interstitial_is_ad_valid];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_is_ad_valid();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_show:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_rewarded_interstitial_show:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_show(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_destroy
 {
-    bool __result = [__impl opera_ads_rewarded_interstitial_destroy];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_destroy();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_app_open_enable:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_app_open_enable:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_app_open_enable(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_app_open_disable
 {
-    bool __result = [__impl opera_ads_app_open_disable];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_app_open_disable();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_app_open_is_enabled
 {
-    bool __result = [__impl opera_ads_app_open_is_enabled];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_app_open_is_enabled();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_load:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    [__impl opera_ads_banner_load:callback];
-
+    __impl->__EXT_SWIFT__opera_ads_banner_load(__arg_buffer, __arg_buffer_length);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_is_ad_valid
 {
-    bool __result = [__impl opera_ads_banner_is_ad_valid];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_is_ad_valid();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_show:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: position, type: enum OperaAdsBannerPosition
-    gm_enums::OperaAdsBannerPosition position = gm::wire::codec::readValue<gm_enums::OperaAdsBannerPosition>(__br);
-
-    bool __result = [__impl opera_ads_banner_show:position];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_show(__arg_buffer, __arg_buffer_length);
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_move:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: position, type: enum OperaAdsBannerPosition
-    gm_enums::OperaAdsBannerPosition position = gm::wire::codec::readValue<gm_enums::OperaAdsBannerPosition>(__br);
-
-    bool __result = [__impl opera_ads_banner_move:position];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_move(__arg_buffer, __arg_buffer_length);
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_destroy
 {
-    bool __result = [__impl opera_ads_banner_destroy];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_destroy();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_hide
 {
-    bool __result = [__impl opera_ads_banner_hide];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_hide();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_unhide
 {
-    bool __result = [__impl opera_ads_banner_unhide];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_unhide();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_banner_is_visible
 {
-    bool __result = [__impl opera_ads_banner_is_visible];
-
-    return static_cast<double>(__result);
+    double __result = __impl->__EXT_SWIFT__opera_ads_banner_is_visible();
+    return __result;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_set_scene:(char*)scene_id
 {
-    [__impl opera_ads_rewarded_set_scene:scene_id];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_set_scene(scene_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_set_reward_ssv_options:(char*)user_id arg1:(char*)custom_data
 {
-    [__impl opera_ads_rewarded_set_reward_ssv_options:user_id custom_data:custom_data];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_set_reward_ssv_options(user_id, custom_data);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_set_scene:(char*)scene_id
 {
-    [__impl opera_ads_rewarded_interstitial_set_scene:scene_id];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_set_scene(scene_id);
     return 0;
 }
 
 - (double)__EXT_NATIVE__opera_ads_rewarded_interstitial_set_reward_ssv_options:(char*)user_id arg1:(char*)custom_data
 {
-    [__impl opera_ads_rewarded_interstitial_set_reward_ssv_options:user_id custom_data:custom_data];
-
+    __impl->__EXT_SWIFT__opera_ads_rewarded_interstitial_set_reward_ssv_options(user_id, custom_data);
     return 0;
 }
 
 // Internal function used for fetching dispatched function calls to GML
 - (double)__EXT_NATIVE__GMOperaAds_invocation_handler:(char*)__ret_buffer arg1:(double)__ret_buffer_length
 {
-    gm::byteio::BufferWriter __bw{ __ret_buffer, static_cast<size_t>(__ret_buffer_length) };
-    return __dispatch_queue.fetch(__bw);
+    return __impl->__EXT_SWIFT__GMOperaAds_invocation_handler(__ret_buffer, __ret_buffer_length);
 }
 
 @end

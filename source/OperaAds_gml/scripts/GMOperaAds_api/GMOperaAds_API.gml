@@ -65,6 +65,15 @@ enum OperaAdsBannerPosition
     BottomRight = 8
 }
 
+enum OperaAdsBannerSize
+{
+    Banner = 0,
+    BannerLarge = 1,
+    BannerMREC = 2,
+    BannerLeaderboard = 3,
+    BannerSmart = 4
+}
+
 // #####################################################################
 // # Constructors
 // #####################################################################
@@ -96,6 +105,9 @@ function opera_ads_init(_callback)
 
     return _return_value;
 }
+
+// Skipping function opera_ads_is_initialized (no wrapper is required)
+
 
 // Skipping function opera_ads_set_mute (no wrapper is required)
 
@@ -134,6 +146,9 @@ function opera_ads_init(_callback)
 
 
 // Skipping function opera_ads_banner_set_placement_id (no wrapper is required)
+
+
+// Skipping function opera_ads_banner_set_auto_refresh (no wrapper is required)
 
 
 /**
@@ -294,13 +309,19 @@ function opera_ads_app_open_enable(_callback)
 
 
 /**
+ * @param {Enum.OperaAdsBannerSize} _size
  * @param {Function} _callback
  */
-function opera_ads_banner_load(_callback)
+function opera_ads_banner_load(_size, _callback)
 {
     static __dispatcher = __GMOperaAds_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _size, type: enum OperaAdsBannerSize
+
+    if (!is_numeric(_size)) show_error($"{_GMFUNCTION_} :: _size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _size);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);

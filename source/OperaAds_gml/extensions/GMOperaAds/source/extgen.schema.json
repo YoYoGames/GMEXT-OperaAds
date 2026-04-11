@@ -303,12 +303,6 @@
             "null"
           ],
           "properties": {
-            "userProps": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
             "outputFolder": {
               "type": "string"
             },

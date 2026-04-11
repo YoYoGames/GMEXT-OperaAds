@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(d:/Github/YoYoExtensions/CppExtensionFunctionsTool/CppExtensionFunctionsTool/bin/Debug/net6.0/CppExtensionFunctionsTool.exe --help)",
+      "Bash(where extgen:*)",
+      "Bash(dotnet tool:*)",
+      "WebFetch(domain:doc.oa.opera.com)",
+      "Read(//tmp/**)",
+      "Bash(jar tf:*)",
+      "Bash(xargs grep:*)"
+    ]
+  }
+}

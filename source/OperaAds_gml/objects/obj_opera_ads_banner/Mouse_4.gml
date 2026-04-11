@@ -8,7 +8,7 @@ if(opera_ads_banner_is_ad_valid())
 	opera_ads_banner_move(move_array[move_index])
 }
 else
-opera_ads_banner_load(
+opera_ads_banner_load(OperaAdsBannerSize.BannerSmart,
 	function(event,err){
 		switch(event)
 		{

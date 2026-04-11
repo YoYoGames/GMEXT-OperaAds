@@ -28,6 +28,12 @@ public abstract class GMOperaAdsInternal extends RunnerSocial implements GMOpera
         return __result ? 1.0 : 0.0;
     }
 
+    public double __EXT_NATIVE__opera_ads_is_initialized()
+    {
+        boolean __result = opera_ads_is_initialized();
+        return __result ? 1.0 : 0.0;
+    }
+
     public double __EXT_NATIVE__opera_ads_set_mute(double mute)
     {
         boolean __result = opera_ads_set_mute(mute != 0);
@@ -103,6 +109,12 @@ public abstract class GMOperaAdsInternal extends RunnerSocial implements GMOpera
     public double __EXT_NATIVE__opera_ads_banner_set_placement_id(String placement_id)
     {
         opera_ads_banner_set_placement_id(placement_id);
+        return 0;
+    }
+
+    public double __EXT_NATIVE__opera_ads_banner_set_auto_refresh(double interval)
+    {
+        opera_ads_banner_set_auto_refresh((double)interval);
         return 0;
     }
 
@@ -235,10 +247,13 @@ public abstract class GMOperaAdsInternal extends RunnerSocial implements GMOpera
     {
         GMExtWire.order(__arg_buffer);
 
+        // field: size, type: enum OperaAdsBannerSize
+        OperaAdsBannerSize size = OperaAdsBannerSize.from(GMExtWire.readI32(__arg_buffer));
+
         // field: callback, type: Function
         GMFunction callback = GMExtWire.readGMFunction(__arg_buffer, __dispatch_queue);
 
-        opera_ads_banner_load(callback);
+        opera_ads_banner_load(size, callback);
         return 0;
     }
 

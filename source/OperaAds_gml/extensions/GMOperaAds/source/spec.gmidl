@@ -8,6 +8,9 @@ module GMOperaAds;
 function opera_ads_init(callback: func): bool;
 
 [global, bind = typed_gml]
+function opera_ads_is_initialized(): bool;
+
+[global, bind = typed_gml]
 function opera_ads_set_mute(mute: bool): bool;
 
 [global, bind = typed_gml]
@@ -45,6 +48,9 @@ function opera_ads_app_open_set_placement_id(placement_id: string): unit;
 
 [global, bind = typed_gml]
 function opera_ads_banner_set_placement_id(placement_id: string): unit;
+
+[global, bind = typed_gml]
+function opera_ads_banner_set_auto_refresh(interval: real): unit;
 
 
 [global, bind = typed_gml]
@@ -138,7 +144,7 @@ enum OperaAdsCallbackEventAppOpen:uint32
 
 
 [global, bind = typed_gml]
-function opera_ads_banner_load(callback: func): unit;
+function opera_ads_banner_load([type_hint=`OperaAdsBannerSize`] size, callback: func): unit;
 
 [global, bind = typed_gml]
 function opera_ads_banner_is_ad_valid(): bool;
@@ -183,6 +189,16 @@ enum OperaAdsBannerPosition:uint32
     BottomLeft,
     BottomCenter,
     BottomRight,
+}
+
+[global, bind = typed_gml]
+enum OperaAdsBannerSize:uint32
+{
+    Banner,
+    BannerLarge,
+    BannerMREC,
+    BannerLeaderboard,
+    BannerSmart,
 }
 
 

@@ -7,6 +7,7 @@ import ${YYAndroidPackageName}.enums.*;
 
 public interface GMOperaAdsInterface {
     public boolean opera_ads_init(GMFunction callback);
+    public boolean opera_ads_is_initialized();
     public boolean opera_ads_set_mute(boolean mute);
     public void opera_ads_set_gdpr(String consent_string, boolean applies);
     public void opera_ads_set_us_privacy(String us_privacy);
@@ -20,6 +21,7 @@ public interface GMOperaAdsInterface {
     public void opera_ads_rewarded_interstitial_set_placement_id(String placement_id);
     public void opera_ads_app_open_set_placement_id(String placement_id);
     public void opera_ads_banner_set_placement_id(String placement_id);
+    public void opera_ads_banner_set_auto_refresh(double interval);
     public void opera_ads_interstitial_load(GMFunction callback);
     public boolean opera_ads_interstitial_is_ad_valid();
     public void opera_ads_interstitial_show(GMFunction callback);
@@ -35,7 +37,7 @@ public interface GMOperaAdsInterface {
     public void opera_ads_app_open_enable(GMFunction callback);
     public boolean opera_ads_app_open_disable();
     public boolean opera_ads_app_open_is_enabled();
-    public void opera_ads_banner_load(GMFunction callback);
+    public void opera_ads_banner_load(OperaAdsBannerSize size, GMFunction callback);
     public boolean opera_ads_banner_is_ad_valid();
     public boolean opera_ads_banner_show(OperaAdsBannerPosition position);
     public boolean opera_ads_banner_move(OperaAdsBannerPosition position);

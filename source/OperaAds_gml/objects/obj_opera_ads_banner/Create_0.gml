@@ -4,7 +4,9 @@ event_inherited();
 text = "Banner"
 
 
-move_array = [OperaAdsBannerPosition.BottomCenter,
+move_array = [
+
+				OperaAdsBannerPosition.BottomCenter,
 				OperaAdsBannerPosition.BottomLeft,
 				OperaAdsBannerPosition.BottomRight,
 				OperaAdsBannerPosition.MiddleCenter,
@@ -12,5 +14,6 @@ move_array = [OperaAdsBannerPosition.BottomCenter,
 				OperaAdsBannerPosition.MiddleRight,
 				OperaAdsBannerPosition.TopCenter,
 				OperaAdsBannerPosition.TopLeft,
-				OperaAdsBannerPosition.TopRight]
+				OperaAdsBannerPosition.TopRight
+				]
 move_index = 0

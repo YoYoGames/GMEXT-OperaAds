@@ -3,7 +3,7 @@
   "%Name":"GMOperaAds",
   "androidactivityinject":null,
   "androidclassname":"GMOperaAds",
-  "androidcodeinjection":"<YYAndroidGradleDependencies>\r\n\r\nimplementation(\"com.opera:opera-ads:+\")\r\n\r\n</YYAndroidGradleDependencies>\r\n\r\n\r\n<YYAndroidTopLevelGradleAllprojectsRepositories>\r\nmaven { url \"https://artifact.op-mobile.opera.com/releases\"}\r\n</YYAndroidTopLevelGradleAllprojectsRepositories>\r\n\r\n",
+  "androidcodeinjection":"<YYAndroidGradleDependencies>\r\n\r\n//implementation(\"com.opera:opera-ads:+\")\r\n//implementation(\"com.opera:opera-ads\")\r\nimplementation(\"com.opera:opera-ads:2.10.0\")\r\n\r\n\r\n</YYAndroidGradleDependencies>\r\n\r\n\r\n<YYAndroidTopLevelGradleAllprojectsRepositories>\r\nmaven { url \"https://artifact.op-mobile.opera.com/releases\"}\r\n</YYAndroidTopLevelGradleAllprojectsRepositories>\r\n\r\n",
   "androidinject":null,
   "androidmanifestinject":null,
   "androidPermissions":[],
@@ -18,6 +18,7 @@
   "files":[
     {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":12,"filename":"GMOperaAds.ext","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"__opera_ads_init","argCount":2,"args":[1,2,],"documentation":"@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_init","help":"","hidden":true,"kind":4,"name":"__opera_ads_init","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
+        {"$GMExtensionFunction":"","%Name":"opera_ads_is_initialized","argCount":0,"args":[],"documentation":"@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_is_initialized","help":"","hidden":false,"kind":4,"name":"opera_ads_is_initialized","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_set_mute","argCount":1,"args":[2,],"documentation":"@param {Real} mute\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_set_mute","help":"","hidden":false,"kind":4,"name":"opera_ads_set_mute","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_set_gdpr","argCount":2,"args":[1,2,],"documentation":"@param {String} consent_string\r\n@param {Real} applies\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_set_gdpr","help":"","hidden":false,"kind":4,"name":"opera_ads_set_gdpr","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_set_us_privacy","argCount":1,"args":[1,],"documentation":"@param {String} us_privacy\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_set_us_privacy","help":"","hidden":false,"kind":4,"name":"opera_ads_set_us_privacy","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
@@ -31,6 +32,7 @@
         {"$GMExtensionFunction":"","%Name":"opera_ads_rewarded_interstitial_set_placement_id","argCount":1,"args":[1,],"documentation":"@param {String} placement_id\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_rewarded_interstitial_set_placement_id","help":"","hidden":false,"kind":4,"name":"opera_ads_rewarded_interstitial_set_placement_id","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_app_open_set_placement_id","argCount":1,"args":[1,],"documentation":"@param {String} placement_id\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_app_open_set_placement_id","help":"","hidden":false,"kind":4,"name":"opera_ads_app_open_set_placement_id","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_banner_set_placement_id","argCount":1,"args":[1,],"documentation":"@param {String} placement_id\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_banner_set_placement_id","help":"","hidden":false,"kind":4,"name":"opera_ads_banner_set_placement_id","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
+        {"$GMExtensionFunction":"","%Name":"opera_ads_banner_set_auto_refresh","argCount":1,"args":[2,],"documentation":"@param {Real} interval\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_banner_set_auto_refresh","help":"","hidden":false,"kind":4,"name":"opera_ads_banner_set_auto_refresh","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"__opera_ads_interstitial_load","argCount":2,"args":[1,2,],"documentation":"@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_interstitial_load","help":"","hidden":true,"kind":4,"name":"__opera_ads_interstitial_load","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"opera_ads_interstitial_is_ad_valid","argCount":0,"args":[],"documentation":"@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_interstitial_is_ad_valid","help":"","hidden":false,"kind":4,"name":"opera_ads_interstitial_is_ad_valid","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"__opera_ads_interstitial_show","argCount":2,"args":[1,2,],"documentation":"@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_interstitial_show","help":"","hidden":true,"kind":4,"name":"__opera_ads_interstitial_show","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
@@ -70,7 +72,7 @@
   "installdir":"",
   "iosCocoaPodDependencies":"",
   "iosCocoaPods":"",
-  "ioscodeinjection":"\n<YYIosCocoaPods>\npod 'OpAdxSdk'\n</YYIosCocoaPods>",
+  "ioscodeinjection":"\n<YYIosCocoaPods>\npod 'OpAdxSdk', '2.9.1'\n</YYIosCocoaPods>",
   "iosdelegatename":"",
   "iosplistinject":null,
   "iosProps":true,
