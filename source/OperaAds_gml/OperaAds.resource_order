@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings":[
-    {"name":"OperaAds Mediation","order":3,"path":"folders/OperaAds Mediation.yy",},
     {"name":"OperaAds DEMO","order":2,"path":"folders/OperaAds DEMO.yy",},
+    {"name":"OperaAds Mediation","order":3,"path":"folders/OperaAds Mediation.yy",},
     {"name":"OperaAds","order":1,"path":"folders/OperaAds.yy",},
   ],
   "ResourceOrderSettings":[

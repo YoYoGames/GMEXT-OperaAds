@@ -36,6 +36,10 @@ elseif(APPLE)
     get_filename_component(EXT_GM_PARENT_DIR "${EXT_GM_XCODEPROJ_OVERRIDE}" DIRECTORY)
 
     set(OPERAADS_XCFRAMEWORK "${EXT_GM_PARENT_DIR}/Pods/OpAdxSdk/OpAdxSdk.xcframework")
+
+         #message(FATAL_ERROR "HERE: ${OPERAADS_XCFRAMEWORK} ???")
+
+
     if(NOT EXISTS "${OPERAADS_XCFRAMEWORK}")
       message(FATAL_ERROR "[third_party] Missing OperaAds XCFramework at: ${OPERAADS_XCFRAMEWORK}")
     endif()
