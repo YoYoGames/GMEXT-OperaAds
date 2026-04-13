@@ -72,7 +72,7 @@
   "installdir":"",
   "iosCocoaPodDependencies":"",
   "iosCocoaPods":"",
-  "ioscodeinjection":"\n<YYIosCocoaPods>\npod 'OpAdxSdk', '2.9.1'\n</YYIosCocoaPods>",
+  "ioscodeinjection":"\n<YYIosCocoaPods>\npod 'OpAdxSdk', '2.9.1'\n</YYIosCocoaPods>\r\n\r\n\r\n<YYIosPlist>\r\n\r\n<key>NSAppTransportSecurity</key>\r\n<dict>\r\n    <key>NSAllowsArbitraryLoads</key>\r\n    <true/>\r\n</dict>\r\n\r\n<key>NSLocationWhenInUseUsageDescription</key>\r\n<string>Your location is used to provide more relevant ads</string>\r\n\r\n\r\n<key>SKAdNetworkItems</key>\r\n<array>\r\n    <dict>\r\n        <key>SKAdNetworkIdentifier</key>\r\n        <string>a2p9lx4jpn.skadnetwork</string>\r\n    </dict>\r\n    \r\n<!-- Add other ad network identifiers here -->\r\n\r\n</array>\r\n\r\n\r\n</YYIosPlist>\r\n\r\n",
   "iosdelegatename":"",
   "iosplistinject":null,
   "iosProps":true,
