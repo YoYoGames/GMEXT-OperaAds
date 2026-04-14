@@ -67,6 +67,11 @@ open class GMOperaAdsInternalSwift
         return false
     }
 
+    open func opera_ads_set_publisher_name(publisher_name: String)
+    {
+        // default stub for opera_ads_set_publisher_name
+    }
+
     open func opera_ads_interstitial_set_placement_id(placement_id: String)
     {
         // default stub for opera_ads_interstitial_set_placement_id
@@ -318,6 +323,12 @@ open class GMOperaAdsInternalSwift
     {
         let __result = self.opera_ads_get_coppa()
         return __result ? 1.0 : 0.0
+    }
+
+    public func __EXT_SWIFT__opera_ads_set_publisher_name(_ publisher_name: String) -> Double
+    {
+        self.opera_ads_set_publisher_name(publisher_name: publisher_name)
+        return 0.0
     }
 
     public func __EXT_SWIFT__opera_ads_interstitial_set_placement_id(_ placement_id: String) -> Double

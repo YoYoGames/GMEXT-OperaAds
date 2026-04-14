@@ -16,7 +16,7 @@
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/GM Extensions Assets/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/GM Extensions Assets/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"OperaAds DEMO","folderPath":"folders/OperaAds DEMO.yy","name":"OperaAds DEMO","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"OperaAds Mediation","folderPath":"folders/OperaAds Mediation.yy","name":"OperaAds Mediation","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Mediations","folderPath":"folders/OperaAds/Mediations.yy","name":"Mediations","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"OperaAds","folderPath":"folders/OperaAds.yy","name":"OperaAds","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],

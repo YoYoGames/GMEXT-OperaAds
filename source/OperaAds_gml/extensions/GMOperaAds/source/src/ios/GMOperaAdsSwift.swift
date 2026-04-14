@@ -15,6 +15,8 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
     private var operaAdsInitialized = false
     private var operaAdsDisplayingAd = false
 
+    private var publisherName = ""
+
     private var gdprConsentString = ""
     private var gdprApplies = false
     private var usPrivacyString = ""
@@ -76,12 +78,13 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
     public override func opera_ads_init(callback: GMFunction) -> Bool {
         let applicationId = extensionOption(ext: "GMOperaAds", opt: "iOS Application Id")
         let iOSAppId = extensionOption(ext: "GMOperaAds", opt: "iOS App Id")
+        if publisherName.isEmpty { publisherName = extensionOption(ext: "GMOperaAds", opt: "iOS Publisher Name") }
 
-        interstitialPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Interstitial")
-        rewardedPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Rewarded")
-        rewardedInterstitialPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Rewarded Interstitial")
-        appOpenPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS App Open")
-        bannerPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Banner")
+        if interstitialPlacementId.isEmpty { interstitialPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Interstitial") }
+        if rewardedPlacementId.isEmpty { rewardedPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Rewarded") }
+        if rewardedInterstitialPlacementId.isEmpty { rewardedInterstitialPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Rewarded Interstitial") }
+        if appOpenPlacementId.isEmpty { appOpenPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS App Open") }
+        if bannerPlacementId.isEmpty { bannerPlacementId = extensionOption(ext: "GMOperaAds", opt: "iOS Banner") }
 
         bannerWrapper = nil
         bannerPosition = .TopCenter
@@ -95,7 +98,7 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
         var builder = OpAdxSdkInitConfig.Builder(applicationId: applicationId)
             .iOSAppId(iOSAppId)
             .coppa(coppa)
-            .publisherName("Publisher")
+            .publisherName(publisherName)
 
         if !usPrivacyString.isEmpty {
             builder = builder.usPrivacy(usPrivacyString)
@@ -144,6 +147,10 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
     public override func opera_ads_set_coppa(coppa: Bool) {
         self.coppa = coppa
         applyPrivacyOptions()
+    }
+
+    public override func opera_ads_set_publisher_name(publisher_name: String) {
+        publisherName = publisher_name
     }
 
     public override func opera_ads_get_gdpr() -> String {

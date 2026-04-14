@@ -80,6 +80,7 @@ public class GMOperaAds extends GMOperaAdsInternal {
 	private String mUSPrivacyString = "";
 	private boolean mCoppa = false;
 
+	private String mPublisherName = "";
 	private String mInterstitialPlacementId = "";
 	private String mRewardedPlacementId = "";
 	private String mRewardedInterstitialPlacementId = "";
@@ -113,12 +114,13 @@ public class GMOperaAds extends GMOperaAdsInternal {
 
 	public boolean opera_ads_init(GMFunction callback) {
 		String app_id = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Application Id");
+		if (mPublisherName.isEmpty()) mPublisherName = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Publisher Name");
 
-		mInterstitialPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Interstitial");
-		mRewardedPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Rewarded");
-		mRewardedInterstitialPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Rewarded Interstitial");
-		mAppOpenPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android App Open");
-		mBannerPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Banner");
+		if (mInterstitialPlacementId.isEmpty()) mInterstitialPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Interstitial");
+		if (mRewardedPlacementId.isEmpty()) mRewardedPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Rewarded");
+		if (mRewardedInterstitialPlacementId.isEmpty()) mRewardedInterstitialPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Rewarded Interstitial");
+		if (mAppOpenPlacementId.isEmpty()) mAppOpenPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android App Open");
+		if (mBannerPlacementId.isEmpty()) mBannerPlacementId = GMExtUtils.GetExtensionOption("GMOperaAds", "Android Banner");
 
 		mBannerVisible = false;
 		opera_ads_apply_privacy_options();
@@ -130,7 +132,7 @@ public class GMOperaAds extends GMOperaAdsInternal {
 		}
 
 		SdkInitConfig.Builder builder = new SdkInitConfig.Builder(app_id)
-			.publisherName("YOUR_PUBLISHER_NAME")
+			.publisherName(mPublisherName)
 			//.testAds(true)
 			.coppa(mCoppa ? 1 : 0);
 
@@ -200,6 +202,10 @@ public class GMOperaAds extends GMOperaAdsInternal {
 
 	public boolean opera_ads_get_coppa() {
 		return mCoppa;
+	}
+
+	public void opera_ads_set_publisher_name(String publisher_name) {
+		mPublisherName = publisher_name != null ? publisher_name : "";
 	}
 
 	// -------------------------------------------------------------------------

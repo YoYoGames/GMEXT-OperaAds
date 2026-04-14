@@ -1,11 +1,12 @@
 {
   "FolderOrderSettings":[
     {"name":"OperaAds DEMO","order":2,"path":"folders/OperaAds DEMO.yy",},
-    {"name":"OperaAds Mediation","order":3,"path":"folders/OperaAds Mediation.yy",},
+    {"name":"Mediations","order":2,"path":"folders/OperaAds/Mediations.yy",},
     {"name":"OperaAds","order":1,"path":"folders/OperaAds.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"GMOperaAds_AppLovinMax","order":1,"path":"extensions/GMOperaAds_AppLovinMax/GMOperaAds_AppLovinMax.yy",},
+    {"name":"GMOperaAds","order":1,"path":"extensions/GMOperaAds/GMOperaAds.yy",},
     {"name":"obj_opera_ads_banner_destroy","order":2,"path":"objects/obj_opera_ads_banner_destroy/obj_opera_ads_banner_destroy.yy",},
     {"name":"obj_opera_ads_banner_hide","order":3,"path":"objects/obj_opera_ads_banner_hide/obj_opera_ads_banner_hide.yy",},
     {"name":"obj_opera_ads_banner","order":1,"path":"objects/obj_opera_ads_banner/obj_opera_ads_banner.yy",},

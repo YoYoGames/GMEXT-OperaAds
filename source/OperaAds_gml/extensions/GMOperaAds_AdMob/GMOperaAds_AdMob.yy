@@ -43,8 +43,8 @@
   "optionsFile":"options.json",
   "packageId":"",
   "parent":{
-    "name":"OperaAds Mediation",
-    "path":"folders/OperaAds Mediation.yy",
+    "name":"Mediations",
+    "path":"folders/OperaAds/Mediations.yy",
   },
   "productId":"",
   "resourceType":"GMExtension",

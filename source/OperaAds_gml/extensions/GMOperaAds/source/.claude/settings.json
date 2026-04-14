@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/Github/GMEXT-OperaAds/source/OperaAds_gml/extensions/GMOperaAds/AndroidSource/Java/**)",
+      "Read(//d/Github/GMEXT-OperaAds/source/OperaAds_gml/extensions/GMOperaAds/**)",
+      "Read(//d/Github/GMEXT-OperaAds/source/OperaAds_gml/options/extensions/**)",
+      "Read(//d/Github/GMEXT-OperaAds/**)"
+    ],
+    "additionalDirectories": [
+      "D:\\Github\\GMEXT-OperaAds\\source\\OperaAds_gml\\extensions\\GMOperaAds\\AndroidSource\\Java",
+      "D:\\Github\\GMEXT-OperaAds\\source\\OperaAds_gml\\extensions\\GMOperaAds"
+    ]
+  }
+}
