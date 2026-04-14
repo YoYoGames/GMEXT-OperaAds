@@ -95,6 +95,7 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
         var builder = OpAdxSdkInitConfig.Builder(applicationId: applicationId)
             .iOSAppId(iOSAppId)
             .coppa(coppa)
+            .publisherName("Publisher")
 
         if !usPrivacyString.isEmpty {
             builder = builder.usPrivacy(usPrivacyString)
