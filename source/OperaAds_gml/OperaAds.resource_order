@@ -1,8 +1,8 @@
 {
   "FolderOrderSettings":[
     {"name":"OperaAds DEMO","order":2,"path":"folders/OperaAds DEMO.yy",},
-    {"name":"Mediations","order":2,"path":"folders/OperaAds/Mediations.yy",},
     {"name":"OperaAds","order":1,"path":"folders/OperaAds.yy",},
+    {"name":"Mediations","order":2,"path":"folders/OperaAds/Mediations.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"GMOperaAds_AppLovinMax","order":1,"path":"extensions/GMOperaAds_AppLovinMax/GMOperaAds_AppLovinMax.yy",},
