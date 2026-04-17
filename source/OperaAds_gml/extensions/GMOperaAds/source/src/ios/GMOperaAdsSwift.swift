@@ -129,7 +129,9 @@ public class GMOperaAdsSwift: GMOperaAdsInternalSwift {
             NSLog("[GMOperaAds] opera_ads_set_mute :: SDK is not initialized.")
             return false
         }
-        //OpAdxSDK.setMuted(mute)//TODO
+
+        OpAdxSdkCore.setOpAdxSdkMuted(NSNumber(value: mute ? 1 : 0))
+        
         return true
     }
 
