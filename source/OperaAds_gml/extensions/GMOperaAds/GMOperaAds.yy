@@ -14,7 +14,7 @@
   "copyToTargets":12,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"0.0.1",
+  "extensionVersion":"0.0.2",
   "files":[
     {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":12,"filename":"GMOperaAds.ext","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"__opera_ads_init","argCount":2,"args":[1,2,],"documentation":"@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}","externalName":"__EXT_NATIVE__opera_ads_init","help":"","hidden":true,"kind":4,"name":"__opera_ads_init","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
