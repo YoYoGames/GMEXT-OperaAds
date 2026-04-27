@@ -6,9 +6,9 @@ Import the OperaAds extension folder with all subfolders into your project. Make
 
 ![Extension Assets](assets/ext_assets.png)
 
-## Initializing the SDK
+## Initialising the SDK
 
-Before displaying ads, you must initialize the Opera Ads SDK. Configure your **Application ID** and **Placement IDs** in the extension options, then initialize early in your game (typically in the Create event of your first room or game controller object):
+Before displaying ads, you must initialise the Opera Ads SDK. Configure your **Application ID** and **Placement IDs** in the extension options, then initialise early in your game (typically in the ${event.create} of your first room or game controller object):
 
 ```gml
 // Initialize Opera Ads SDK
@@ -20,13 +20,13 @@ opera_ads_init(function(success, error_message)
         return;
     }
 
-    show_debug_message("Opera Ads initialized successfully!");
+    show_debug_message("Opera Ads initialised successfully!");
 });
 ```
 
 ## Displaying Your First Ad
 
-Once the SDK is initialized, you can load and display ads. Here's a simple example of showing a banner ad:
+Once the SDK is initialised, you can load and display ads. Here's a simple example of showing a banner ad:
 
 ```gml
 // Load a banner ad (uses placement ID from extension options)

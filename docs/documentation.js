@@ -7,7 +7,7 @@
  *
  * The extension provides support for:
  *
- * - SDK initialization
+ * - SDK initialisation
  * - Privacy configuration (GDPR, US Privacy, COPPA)
  * - Interstitial ads
  * - Rewarded ads
@@ -17,7 +17,7 @@
  *
  * ## Notes
  *
- * - Call {func.opera_ads_init} before using any other ad function.
+ * - Call ${func.opera_ads_init} before using any other ad function.
  * - Most ad loading and showing operations are asynchronous and use callback functions.
  * - Interstitial, rewarded, rewarded interstitial, and app open callbacks use enum event values.
  * - Rewarded formats also pass reward data when the user earns a reward.
@@ -35,7 +35,7 @@
  *         return;
  *     }
  *
- *     show_debug_message("Opera Ads initialized");
+ *     show_debug_message("Opera Ads initialised");
  *
  *     opera_ads_interstitial_load(function(load_success, load_error)
  *     {
@@ -134,12 +134,12 @@
 
 /**
  * @function opera_ads_init
- * @desc Initializes the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialization succeeds or fails.
- * @param {Function} callback
+ * @desc This function initialises the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialisation succeeds or fails.
+ * @param {Function} callback The callback function to call upon completion.
  * @returns {Bool}
  *
  * @event callback
- * @member {Bool} success Whether SDK initialization succeeded.
+ * @member {Bool} success Whether SDK initialisation succeeded.
  * @member {String} error_message Error message when initialization fails. This argument may be omitted on success.
  * @event_end
  *
@@ -161,7 +161,7 @@
 
 /**
  * @function opera_ads_set_mute
- * @desc Enables or disables ad audio. This affects SDK audio playback after the SDK has been initialized.
+ * @desc This function enables or disables ad audio. This affects SDK audio playback after the SDK has been initialised.
  * @param {Bool} mute Whether to mute ad audio.
  * @returns {Bool}
  * @example
@@ -173,7 +173,7 @@
 
 /**
  * @function opera_ads_set_gdpr
- * @desc Sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling {func.opera_ads_init}.
+ * @desc This function sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling ${func.opera_ads_init}.
  * @param {String} consent_string IAB TCF consent string.
  * @param {Bool} applies Whether GDPR applies to the current user.
  * @example
@@ -185,7 +185,7 @@
 
 /**
  * @function opera_ads_set_us_privacy
- * @desc Sets the US privacy string used by the SDK. This should typically be set before initialization when applicable.
+ * @desc This function sets the US privacy string used by the SDK. This should typically be set before initialisation when applicable.
  * @param {String} us_privacy US privacy consent string.
  * @example
  * ```gml
@@ -196,8 +196,8 @@
 
 /**
  * @function opera_ads_set_coppa
- * @desc Enables or disables COPPA treatment for the current user.
- * @param {Bool} coppa
+ * @desc This function enables or disables COPPA treatment for the current user.
+ * @param {Bool} coppa Whether to enable COPPA or not.
  * @example
  * ```gml
  * opera_ads_set_coppa(true);
@@ -207,7 +207,7 @@
 
 /**
  * @function opera_ads_get_gdpr
- * @desc Returns the currently stored GDPR consent string.
+ * @desc This function returns the currently stored GDPR consent string.
  * @returns {String}
  * @example
  * ```gml
@@ -219,7 +219,7 @@
 
 /**
  * @function opera_ads_get_gdpr_applies
- * @desc Returns whether GDPR currently applies for the stored privacy state.
+ * @desc This function returns whether GDPR currently applies for the stored privacy state.
  * @returns {Bool}
  * @example
  * ```gml
@@ -233,7 +233,7 @@
 
 /**
  * @function opera_ads_get_us_privacy
- * @desc Returns the currently stored US privacy string.
+ * @desc This function returns the currently stored US privacy string.
  * @returns {String}
  * @example
  * ```gml
@@ -244,7 +244,7 @@
 
 /**
  * @function opera_ads_get_coppa
- * @desc Returns whether COPPA treatment is currently enabled.
+ * @desc This function returns whether COPPA treatment is currently enabled.
  * @returns {Bool}
  * @example
  * ```gml
@@ -258,7 +258,7 @@
 
 /**
  * @function opera_ads_interstitial_set_placement_id
- * @desc Sets a custom placement ID for interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
+ * @desc This function sets a custom placement ID for interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
  * @param {String} placement_id The custom placement ID to use for interstitial ads.
  * @example
  * ```gml
@@ -269,8 +269,8 @@
 
 /**
  * @function opera_ads_interstitial_load
- * @desc Loads an interstitial ad asynchronously.
- * @param {Function} callback
+ * @desc This function loads an interstitial ad asynchronously.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the interstitial ad loaded successfully.
@@ -295,7 +295,7 @@
 
 /**
  * @function opera_ads_interstitial_is_ad_valid
- * @desc Returns whether a loaded interstitial ad is currently available and still valid for showing.
+ * @desc This function returns whether a loaded interstitial ad is currently available and still valid for showing.
  * @returns {Bool}
  * @example
  * ```gml
@@ -309,12 +309,12 @@
 
 /**
  * @function opera_ads_interstitial_show
- * @desc Shows the currently loaded interstitial ad. The callback receives event updates during the ad lifecycle.
- * @param {Function} callback
+ * @desc This function shows the currently loaded interstitial ad. The callback receives event updates during the ad lifecycle.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventInterstitial} event Event describing the interstitial lifecycle state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventInterstitial}.Failed. This argument may be omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventInterstitial.Failed`. This argument may be omitted for other events.
  * @event_end
  *
  * @example
@@ -349,7 +349,7 @@
 
 /**
  * @function opera_ads_interstitial_destroy
- * @desc Destroys the currently loaded interstitial ad and clears its internal reference.
+ * @desc This function destroys the currently loaded interstitial ad and clears its internal reference.
  * @returns {Bool}
  * @example
  * ```gml
@@ -360,7 +360,7 @@
 
 /**
  * @function opera_ads_rewarded_set_placement_id
- * @desc Sets a custom placement ID for rewarded ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
+ * @desc This function sets a custom placement ID for rewarded ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
  * @param {String} placement_id The custom placement ID to use for rewarded ads.
  * @example
  * ```gml
@@ -371,8 +371,8 @@
 
 /**
  * @function opera_ads_rewarded_load
- * @desc Loads a rewarded ad asynchronously.
- * @param {Function} callback
+ * @desc This function loads a rewarded ad asynchronously.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the rewarded ad loaded successfully.
@@ -397,7 +397,7 @@
 
 /**
  * @function opera_ads_rewarded_is_ad_valid
- * @desc Returns whether a loaded rewarded ad is currently available and still valid for showing.
+ * @desc This function returns whether a loaded rewarded ad is currently available and still valid for showing.
  * @returns {Bool}
  * @example
  * ```gml
@@ -411,14 +411,14 @@
 
 /**
  * @function opera_ads_rewarded_show
- * @desc Shows the currently loaded rewarded ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
- * @param {Function} callback
+ * @desc This function shows the currently loaded rewarded ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventRewarded} event Event describing the rewarded ad lifecycle state.
- * @member {String} reward_type Reward type string when the event is ${const.OperaAdsCallbackEventRewarded}.Rewarded. Omitted for other events.
- * @member {Real} reward_amount Reward amount when the event is ${const.OperaAdsCallbackEventRewarded}.Rewarded. Omitted for other events.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventRewarded}.Failed. Omitted for other events.
+ * @member {String} reward_type Reward type string when the event is `OperaAdsCallbackEventRewarded.Rewarded`. Omitted for other events.
+ * @member {Real} reward_amount Reward amount when the event is `OperaAdsCallbackEventRewarded.Rewarded`. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventRewarded.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -457,7 +457,7 @@
 
 /**
  * @function opera_ads_rewarded_destroy
- * @desc Destroys the currently loaded rewarded ad and clears its internal reference.
+ * @desc This function destroys the currently loaded rewarded ad and clears its internal reference.
  * @returns {Bool}
  * @example
  * ```gml
@@ -468,7 +468,7 @@
 
 /**
  * @function opera_ads_rewarded_set_scene
- * @desc Sets the scene ID for rewarded ads. This is used for analytics and reporting purposes. Android only.
+ * @desc This function sets the scene ID for rewarded ads. This is used for analytics and reporting purposes. Android only.
  * @param {String} scene_id The scene identifier to associate with rewarded ads.
  * @example
  * ```gml
@@ -479,7 +479,7 @@
 
 /**
  * @function opera_ads_rewarded_set_reward_ssv_options
- * @desc Sets server-side verification (SSV) options for rewarded ads. This enables server-to-server reward validation. Android only.
+ * @desc This function sets server-side verification (SSV) options for rewarded ads. This enables server-to-server reward validation. Android only.
  * @param {String} user_id User identifier for server-side verification.
  * @param {String} custom_data Custom data to be passed with the verification request.
  * @example
@@ -491,7 +491,7 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_set_placement_id
- * @desc Sets a custom placement ID for rewarded interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
+ * @desc This function sets a custom placement ID for rewarded interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.
  * @param {String} placement_id The custom placement ID to use for rewarded interstitial ads.
  * @example
  * ```gml
@@ -502,8 +502,8 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_load
- * @desc Loads a rewarded interstitial ad asynchronously.
- * @param {Function} callback
+ * @desc This function loads a rewarded interstitial ad asynchronously.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the rewarded interstitial ad loaded successfully.
@@ -528,7 +528,7 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_is_ad_valid
- * @desc Returns whether a loaded rewarded interstitial ad is currently available and still valid for showing.
+ * @desc This function returns whether a loaded rewarded interstitial ad is currently available and still valid for showing.
  * @returns {Bool}
  * @example
  * ```gml
@@ -542,14 +542,14 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_show
- * @desc Shows the currently loaded rewarded interstitial ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
- * @param {Function} callback
+ * @desc This function shows the currently loaded rewarded interstitial ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventRewardedInterstitial} event Event describing the rewarded interstitial lifecycle state.
- * @member {String} reward_type Reward type string when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Rewarded. Omitted for other events.
- * @member {Real} reward_amount Reward amount when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Rewarded. Omitted for other events.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Failed. Omitted for other events.
+ * @member {String} reward_type Reward type string when the event is `OperaAdsCallbackEventRewardedInterstitial.Rewarded`. Omitted for other events.
+ * @member {Real} reward_amount Reward amount when the event is `OperaAdsCallbackEventRewardedInterstitial.Rewarded`. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventRewardedInterstitial.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -588,7 +588,7 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_destroy
- * @desc Destroys the currently loaded rewarded interstitial ad and clears its internal reference.
+ * @desc This function destroys the currently loaded rewarded interstitial ad and clears its internal reference.
  * @returns {Bool}
  * @example
  * ```gml
@@ -599,7 +599,7 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_set_scene
- * @desc Sets the scene ID for rewarded interstitial ads. This is used for analytics and reporting purposes. Android only.
+ * @desc This function sets the scene ID for rewarded interstitial ads. This is used for analytics and reporting purposes. Android only.
  * @param {String} scene_id The scene identifier to associate with rewarded interstitial ads.
  * @example
  * ```gml
@@ -610,7 +610,7 @@
 
 /**
  * @function opera_ads_rewarded_interstitial_set_reward_ssv_options
- * @desc Sets server-side verification (SSV) options for rewarded interstitial ads. This enables server-to-server reward validation. Android only.
+ * @desc This function sets server-side verification (SSV) options for rewarded interstitial ads. This enables server-to-server reward validation. Android only.
  * @param {String} user_id User identifier for server-side verification.
  * @param {String} custom_data Custom data to be passed with the verification request.
  * @example
@@ -622,7 +622,7 @@
 
 /**
  * @function opera_ads_app_open_set_placement_id
- * @desc Sets a custom placement ID for app open ads. This overrides the default placement ID configured in the extension options. Must be called before enabling app open ads.
+ * @desc This function sets a custom placement ID for app open ads. This overrides the default placement ID configured in the extension options. Must be called before enabling app open ads.
  * @param {String} placement_id The custom placement ID to use for app open ads.
  * @example
  * ```gml
@@ -633,12 +633,12 @@
 
 /**
  * @function opera_ads_app_open_enable
- * @desc Enables app open ads. After being enabled, the extension manages app open loading and showing automatically when the application returns to the foreground.
- * @param {Function} callback
+ * @desc This function enables app open ads. After being enabled, the extension manages app open loading and showing automatically when the application returns to the foreground.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventAppOpen} event Event describing app open load or display state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventAppOpen}.LoadFailed or ${const.OperaAdsCallbackEventAppOpen}.Failed. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventAppOpen.LoadFailed` or `OperaAdsCallbackEventAppOpen.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -671,7 +671,7 @@
 
 /**
  * @function opera_ads_app_open_disable
- * @desc Disables app open ads and clears any currently managed app open ad instance.
+ * @desc This function disables app open ads and clears any currently managed app open ad instance.
  * @returns {Bool}
  * @example
  * ```gml
@@ -682,7 +682,7 @@
 
 /**
  * @function opera_ads_app_open_is_enabled
- * @desc Returns whether app open ads are currently enabled.
+ * @desc This function returns whether app open ads are currently enabled.
  * @returns {Bool}
  * @example
  * ```gml
@@ -696,7 +696,7 @@
 
 /**
  * @function opera_ads_banner_set_placement_id
- * @desc Sets a custom placement ID for banner ads. This overrides the default placement ID configured in the extension options. Must be called before loading the banner.
+ * @desc This function sets a custom placement ID for banner ads. This overrides the default placement ID configured in the extension options. Must be called before loading the banner.
  * @param {String} placement_id The custom placement ID to use for banner ads.
  * @example
  * ```gml
@@ -707,12 +707,12 @@
 
 /**
  * @function opera_ads_banner_load
- * @desc Loads a banner ad asynchronously.
- * @param {Function} callback
+ * @desc This function loads a banner ad asynchronously.
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventBanner} event Event describing banner load or interaction state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventBanner}.LoadFailed. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventBanner.LoadFailed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -744,7 +744,7 @@
 
 /**
  * @function opera_ads_banner_is_ad_valid
- * @desc Returns whether a banner ad is currently loaded and still valid.
+ * @desc This function returns whether a banner ad is currently loaded and still valid.
  * @returns {Bool}
  * @example
  * ```gml
@@ -758,7 +758,7 @@
 
 /**
  * @function opera_ads_banner_show
- * @desc Shows the loaded banner ad at the given screen position. If the banner has already been attached, its position is updated and it is made visible.
+ * @desc This function shows the loaded banner ad at the given screen position. If the banner has already been attached, its position is updated and it is made visible.
  * @param {Enum.OperaAdsBannerPosition} position Desired banner position on screen.
  * @returns {Bool}
  * @example
@@ -770,7 +770,7 @@
 
 /**
  * @function opera_ads_banner_move
- * @desc Moves the currently attached banner ad to a new screen position without reloading it.
+ * @desc This function moves the currently attached banner ad to a new screen position without reloading it.
  * @param {Enum.OperaAdsBannerPosition} position Desired banner position on screen.
  * @returns {Bool}
  * @example
@@ -782,7 +782,7 @@
 
 /**
  * @function opera_ads_banner_destroy
- * @desc Destroys the current banner ad, removes it from the view hierarchy, and clears its loaded state.
+ * @desc This function destroys the current banner ad, removes it from the view hierarchy, and clears its loaded state.
  * @returns {Bool}
  * @example
  * ```gml
@@ -793,7 +793,7 @@
 
 /**
  * @function opera_ads_banner_hide
- * @desc Hides the currently attached banner ad without destroying it.
+ * @desc This function hides the currently attached banner ad without destroying it.
  * @returns {Bool}
  * @example
  * ```gml
@@ -804,7 +804,7 @@
 
 /**
  * @function opera_ads_banner_unhide
- * @desc Makes a previously hidden banner visible again. If the banner became invalid while hidden, it may need to be loaded again.
+ * @desc This function makes a previously hidden banner visible again. If the banner became invalid while hidden, it may need to be loaded again.
  * @returns {Bool}
  * @example
  * ```gml
@@ -815,7 +815,7 @@
 
 /**
  * @function opera_ads_banner_is_visible
- * @desc Returns whether the banner is currently attached and visible on screen.
+ * @desc This function returns whether the banner is currently attached and visible on screen.
  * @returns {Bool}
  * @example
  * ```gml
