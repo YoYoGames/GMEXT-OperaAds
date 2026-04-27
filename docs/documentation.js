@@ -7,7 +7,7 @@
  *
  * The extension provides support for:
  *
- * - SDK initialization
+ * - SDK initialisation
  * - Privacy configuration (GDPR, US Privacy, COPPA)
  * - Interstitial ads
  * - Rewarded ads
@@ -17,7 +17,7 @@
  *
  * ## Notes
  *
- * - Call {func.opera_ads_init} before using any other ad function.
+ * - Call ${func.opera_ads_init} before using any other ad function.
  * - Most ad loading and showing operations are asynchronous and use callback functions.
  * - Interstitial, rewarded, rewarded interstitial, and app open callbacks use enum event values.
  * - Rewarded formats also pass reward data when the user earns a reward.
@@ -35,7 +35,7 @@
  *         return;
  *     }
  *
- *     show_debug_message("Opera Ads initialized");
+ *     show_debug_message("Opera Ads initialised");
  *
  *     opera_ads_interstitial_load(function(load_success, load_error)
  *     {
@@ -134,12 +134,12 @@
 
 /**
  * @function opera_ads_init
- * @desc Initializes the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialization succeeds or fails.
- * @param {Function} callback
+ * @desc Initialises the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialisation succeeds or fails.
+ * @param {Function} callback The callback function to call upon completion.
  * @returns {Bool}
  *
  * @event callback
- * @member {Bool} success Whether SDK initialization succeeded.
+ * @member {Bool} success Whether SDK initialisation succeeded.
  * @member {String} error_message Error message when initialization fails. This argument may be omitted on success.
  * @event_end
  *
@@ -161,7 +161,7 @@
 
 /**
  * @function opera_ads_set_mute
- * @desc Enables or disables ad audio. This affects SDK audio playback after the SDK has been initialized.
+ * @desc Enables or disables ad audio. This affects SDK audio playback after the SDK has been initialised.
  * @param {Bool} mute Whether to mute ad audio.
  * @returns {Bool}
  * @example
@@ -173,7 +173,7 @@
 
 /**
  * @function opera_ads_set_gdpr
- * @desc Sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling {func.opera_ads_init}.
+ * @desc Sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling ${func.opera_ads_init}.
  * @param {String} consent_string IAB TCF consent string.
  * @param {Bool} applies Whether GDPR applies to the current user.
  * @example
@@ -185,7 +185,7 @@
 
 /**
  * @function opera_ads_set_us_privacy
- * @desc Sets the US privacy string used by the SDK. This should typically be set before initialization when applicable.
+ * @desc Sets the US privacy string used by the SDK. This should typically be set before initialisation when applicable.
  * @param {String} us_privacy US privacy consent string.
  * @example
  * ```gml
@@ -197,7 +197,7 @@
 /**
  * @function opera_ads_set_coppa
  * @desc Enables or disables COPPA treatment for the current user.
- * @param {Bool} coppa
+ * @param {Bool} coppa Whether to enable COPPA or not.
  * @example
  * ```gml
  * opera_ads_set_coppa(true);
@@ -270,7 +270,7 @@
 /**
  * @function opera_ads_interstitial_load
  * @desc Loads an interstitial ad asynchronously.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the interstitial ad loaded successfully.
@@ -310,11 +310,11 @@
 /**
  * @function opera_ads_interstitial_show
  * @desc Shows the currently loaded interstitial ad. The callback receives event updates during the ad lifecycle.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventInterstitial} event Event describing the interstitial lifecycle state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventInterstitial}.Failed. This argument may be omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventInterstitial.Failed`. This argument may be omitted for other events.
  * @event_end
  *
  * @example
@@ -372,7 +372,7 @@
 /**
  * @function opera_ads_rewarded_load
  * @desc Loads a rewarded ad asynchronously.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the rewarded ad loaded successfully.
@@ -412,13 +412,13 @@
 /**
  * @function opera_ads_rewarded_show
  * @desc Shows the currently loaded rewarded ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventRewarded} event Event describing the rewarded ad lifecycle state.
- * @member {String} reward_type Reward type string when the event is ${const.OperaAdsCallbackEventRewarded}.Rewarded. Omitted for other events.
- * @member {Real} reward_amount Reward amount when the event is ${const.OperaAdsCallbackEventRewarded}.Rewarded. Omitted for other events.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventRewarded}.Failed. Omitted for other events.
+ * @member {String} reward_type Reward type string when the event is `OperaAdsCallbackEventRewarded.Rewarded`. Omitted for other events.
+ * @member {Real} reward_amount Reward amount when the event is `OperaAdsCallbackEventRewarded.Rewarded`. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventRewarded.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -503,7 +503,7 @@
 /**
  * @function opera_ads_rewarded_interstitial_load
  * @desc Loads a rewarded interstitial ad asynchronously.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Bool} success Whether the rewarded interstitial ad loaded successfully.
@@ -543,13 +543,13 @@
 /**
  * @function opera_ads_rewarded_interstitial_show
  * @desc Shows the currently loaded rewarded interstitial ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventRewardedInterstitial} event Event describing the rewarded interstitial lifecycle state.
- * @member {String} reward_type Reward type string when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Rewarded. Omitted for other events.
- * @member {Real} reward_amount Reward amount when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Rewarded. Omitted for other events.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventRewardedInterstitial}.Failed. Omitted for other events.
+ * @member {String} reward_type Reward type string when the event is `OperaAdsCallbackEventRewardedInterstitial.Rewarded`. Omitted for other events.
+ * @member {Real} reward_amount Reward amount when the event is `OperaAdsCallbackEventRewardedInterstitial.Rewarded`. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventRewardedInterstitial.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -634,11 +634,11 @@
 /**
  * @function opera_ads_app_open_enable
  * @desc Enables app open ads. After being enabled, the extension manages app open loading and showing automatically when the application returns to the foreground.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventAppOpen} event Event describing app open load or display state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventAppOpen}.LoadFailed or ${const.OperaAdsCallbackEventAppOpen}.Failed. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventAppOpen.LoadFailed` or `OperaAdsCallbackEventAppOpen.Failed`. Omitted for other events.
  * @event_end
  *
  * @example
@@ -708,11 +708,11 @@
 /**
  * @function opera_ads_banner_load
  * @desc Loads a banner ad asynchronously.
- * @param {Function} callback
+ * @param {Function} callback The function to be called upon completion.
  *
  * @event callback
  * @member {Enum.OperaAdsCallbackEventBanner} event Event describing banner load or interaction state.
- * @member {String} error_message Error message when the event is ${const.OperaAdsCallbackEventBanner}.LoadFailed. Omitted for other events.
+ * @member {String} error_message Error message when the event is `OperaAdsCallbackEventBanner.LoadFailed`. Omitted for other events.
  * @event_end
  *
  * @example
