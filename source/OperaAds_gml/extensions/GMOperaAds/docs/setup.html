@@ -79,22 +79,25 @@
                 <h2 id="setting-up">Setting Up</h2>
 <p>Import the OperaAds extension folder with all subfolders into your project. Make sure to include the ExtensionCore subdirectory and all of its contents.</p>
 <p><img alt="Extension Assets" src="assets/ext_assets.png" /></p>
-<h2 id="initializing-the-sdk">Initializing the SDK</h2>
-<p>Before displaying ads, you must initialize the Opera Ads SDK. Configure your <strong>Application ID</strong> and <strong>Placement IDs</strong> in the extension options, then initialize early in your game (typically in the Create event of your first room or game controller object):</p>
-<pre class="highlight"><code class="language-gml">// Initialize Opera Ads SDK
+<h2 id="initialising-the-sdk">Initialising the SDK</h2>
+<p>Before displaying ads, you must initialise the Opera Ads SDK. Configure your <strong>Application ID</strong> and <strong>Placement IDs</strong> in the extension options, then initialise early in your game (typically in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Object_Events.htm">Create Event</a> of your first room or game controller object):</p>
+<p>```gml
+// Initialize Opera Ads SDK
 opera_ads_init(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Opera Ads init failed: " + string(error_message));
         return;
-    }
-
-    show_debug_message("Opera Ads initialized successfully!");
-});</code></pre>
+    }</p>
+<pre><code>show_debug_message("Opera Ads initialised successfully!");
+</code></pre>
+<p>});
+```</p>
 <h2 id="displaying-your-first-ad">Displaying Your First Ad</h2>
-<p>Once the SDK is initialized, you can load and display ads. Here's a simple example of showing a banner ad:</p>
-<pre class="highlight"><code class="language-gml">// Load a banner ad (uses placement ID from extension options)
+<p>Once the SDK is initialised, you can load and display ads. Here's a simple example of showing a banner ad:</p>
+<p>```gml
+// Load a banner ad (uses placement ID from extension options)
 opera_ads_banner_load(function(event, error_message)
 {
     switch (event)
@@ -103,26 +106,28 @@ opera_ads_banner_load(function(event, error_message)
             show_debug_message("Banner loaded");
             // Show banner at bottom center of screen
             opera_ads_banner_show(OperaAdsBannerPosition.BottomCenter);
-            break;
+            break;</p>
+<pre><code>    case OperaAdsCallbackEventBanner.Impression:
+        show_debug_message("Banner impression recorded");
+        break;
 
-        case OperaAdsCallbackEventBanner.Impression:
-            show_debug_message("Banner impression recorded");
-            break;
+    case OperaAdsCallbackEventBanner.Clicked:
+        show_debug_message("Banner clicked");
+        break;
 
-        case OperaAdsCallbackEventBanner.Clicked:
-            show_debug_message("Banner clicked");
-            break;
-
-        case OperaAdsCallbackEventBanner.LoadFailed:
-            show_debug_message("Banner load failed: " + string(error_message));
-            break;
-    }
-});</code></pre>
+    case OperaAdsCallbackEventBanner.LoadFailed:
+        show_debug_message("Banner load failed: " + string(error_message));
+        break;
+}
+</code></pre>
+<p>});
+```</p>
 <h2 id="using-custom-placement-ids">Using Custom Placement IDs</h2>
 <p>You can override the default placement IDs configured in the extension options:</p>
-<pre class="highlight"><code class="language-gml">// Set a custom banner placement ID before loading
+<p><code>gml
+// Set a custom banner placement ID before loading
 opera_ads_banner_set_placement_id("your_custom_banner_id");
-opera_ads_banner_load(function(event, error_message) { /* ... */ });</code></pre>
+opera_ads_banner_load(function(event, error_message) { /* ... */ });</code></p>
 <h2 id="extension-configuration">Extension Configuration</h2>
 <p>Before using the extension, configure your Opera Ads credentials in the <strong>Extension Options</strong>:</p>
 <ol>

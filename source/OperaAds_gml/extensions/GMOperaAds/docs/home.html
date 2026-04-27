@@ -96,7 +96,7 @@
 <p>This extension integrates the Opera Ads SDK for GameMaker projects and supports both Android and iOS through the shared extension interface.</p>
 <p>The extension provides support for:</p>
 <ul>
-<li>SDK initialization</li>
+<li>SDK initialisation</li>
 <li>Privacy configuration (GDPR, US Privacy, COPPA)</li>
 <li>Interstitial ads</li>
 <li>Rewarded ads</li>
@@ -106,7 +106,7 @@
 </ul>
 <h2 id="notes">Notes</h2>
 <ul>
-<li>Call {func.opera_ads_init} before using any other ad function.</li>
+<li>Call <a href="home.html#opera_ads_init">opera_ads_init</a> before using any other ad function.</li>
 <li>Most ad loading and showing operations are asynchronous and use callback functions.</li>
 <li>Interstitial, rewarded, rewarded interstitial, and app open callbacks use enum event values.</li>
 <li>Rewarded formats also pass reward data when the user earns a reward.</li>
@@ -114,53 +114,55 @@
 <li>App open ads are enabled once and are then managed automatically by the extension when the app returns to the foreground.</li>
 </ul>
 <p>Basic example of usage:</p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_init(function(success, error_message)
+<p>```gml
+if (opera_ads_init(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Opera Ads init failed: " + string(error_message));
         return;
+    }</p>
+<pre><code>show_debug_message("Opera Ads initialised");
+
+opera_ads_interstitial_load(function(load_success, load_error)
+{
+    if (!load_success)
+    {
+        show_debug_message("Interstitial load failed: " + string(load_error));
+        return;
     }
 
-    show_debug_message("Opera Ads initialized");
-
-    opera_ads_interstitial_load(function(load_success, load_error)
+    if (opera_ads_interstitial_is_ad_valid())
     {
-        if (!load_success)
+        opera_ads_interstitial_show(function(event, error_message)
         {
-            show_debug_message("Interstitial load failed: " + string(load_error));
-            return;
-        }
-
-        if (opera_ads_interstitial_is_ad_valid())
-        {
-            opera_ads_interstitial_show(function(event, error_message)
+            switch (event)
             {
-                switch (event)
-                {
-                    case OperaAdsCallbackEventInterstitial.Displayed:
-                        show_debug_message("Interstitial displayed");
-                    break;
+                case OperaAdsCallbackEventInterstitial.Displayed:
+                    show_debug_message("Interstitial displayed");
+                break;
 
-                    case OperaAdsCallbackEventInterstitial.Clicked:
-                        show_debug_message("Interstitial clicked");
-                    break;
+                case OperaAdsCallbackEventInterstitial.Clicked:
+                    show_debug_message("Interstitial clicked");
+                break;
 
-                    case OperaAdsCallbackEventInterstitial.Dismissed:
-                        show_debug_message("Interstitial dismissed");
-                    break;
+                case OperaAdsCallbackEventInterstitial.Dismissed:
+                    show_debug_message("Interstitial dismissed");
+                break;
 
-                    case OperaAdsCallbackEventInterstitial.Failed:
-                        show_debug_message("Interstitial failed: " + string(error_message));
-                    break;
-                }
-            });
-        }
-    });
-}))
+                case OperaAdsCallbackEventInterstitial.Failed:
+                    show_debug_message("Interstitial failed: " + string(error_message));
+                break;
+            }
+        });
+    }
+});
+</code></pre>
+<p>}))
 {
     show_debug_message("Init request started");
-}</code></pre>
+}
+```</p>
 <h2 id="functions">Functions</h2>
 <p>This module offers a collection of functions designed to address specific tasks and provide utilities for various purposes. Explore the available functions to make the most of the functionalities provided by this module.</p>
 <ul>
@@ -221,12 +223,13 @@
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_init">opera_ads_init</h1>
-<p>Initializes the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialization succeeds or fails.</p>
+<p>This function initialises the Opera Ads SDK. This should be called before using any other function in the extension. The function returns immediately and the provided callback is called asynchronously when initialisation succeeds or fails.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_init(callback)</code></pre>
+<p><code>gml
+opera_ads_init(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -240,7 +243,7 @@
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The callback function to call upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -268,7 +271,7 @@
 <tr>
 <td>success</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
-<td>Whether SDK initialization succeeded.</td>
+<td>Whether SDK initialisation succeeded.</td>
 </tr>
 <tr>
 <td>error_message</td>
@@ -279,27 +282,30 @@
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_init(function(success, error_message)
+<p>```gml
+opera_ads_init(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Init failed: " + string(error_message));
         return;
-    }
-
-    show_debug_message("Opera Ads ready");
-});</code></pre>
+    }</p>
+<pre><code>show_debug_message("Opera Ads ready");
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_set_mute">opera_ads_set_mute</h1>
-<p>Enables or disables ad audio. This affects SDK audio playback after the SDK has been initialized.</p>
+<p>This function enables or disables ad audio. This affects SDK audio playback after the SDK has been initialised.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_set_mute(mute)</code></pre>
+<p><code>gml
+opera_ads_set_mute(mute)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -326,18 +332,20 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_set_mute(true);</code></pre>
+<p><code>gml
+opera_ads_set_mute(true);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_set_gdpr">opera_ads_set_gdpr</h1>
-<p>Sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling {func.opera_ads_init}.</p>
+<p>This function sets the GDPR consent string and whether GDPR applies to the current user. This information should ideally be configured before calling <a href="home.html#opera_ads_init">opera_ads_init</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_set_gdpr(consent_string, applies)</code></pre>
+<p><code>gml
+opera_ads_set_gdpr(consent_string, applies)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -369,18 +377,20 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_set_gdpr("CPXxRfAPXxRfAAHABBENBRCgAAAAAAAAAAYgAAAAAAAA", true);</code></pre>
+<p><code>gml
+opera_ads_set_gdpr("CPXxRfAPXxRfAAHABBENBRCgAAAAAAAAAAYgAAAAAAAA", true);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_set_us_privacy">opera_ads_set_us_privacy</h1>
-<p>Sets the US privacy string used by the SDK. This should typically be set before initialization when applicable.</p>
+<p>This function sets the US privacy string used by the SDK. This should typically be set before initialisation when applicable.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_set_us_privacy(us_privacy)</code></pre>
+<p><code>gml
+opera_ads_set_us_privacy(us_privacy)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -407,18 +417,20 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_set_us_privacy("1YYY");</code></pre>
+<p><code>gml
+opera_ads_set_us_privacy("1YYY");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_set_coppa">opera_ads_set_coppa</h1>
-<p>Enables or disables COPPA treatment for the current user.</p>
+<p>This function enables or disables COPPA treatment for the current user.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_set_coppa(coppa)</code></pre>
+<p><code>gml
+opera_ads_set_coppa(coppa)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -432,7 +444,7 @@
 <tr>
 <td>coppa</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
-<td></td>
+<td>Whether to enable COPPA or not.</td>
 </tr>
 </tbody>
 </table>
@@ -445,18 +457,20 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_set_coppa(true);</code></pre>
+<p><code>gml
+opera_ads_set_coppa(true);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_get_gdpr">opera_ads_get_gdpr</h1>
-<p>Returns the currently stored GDPR consent string.</p>
+<p>This function returns the currently stored GDPR consent string.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_get_gdpr()</code></pre>
+<p><code>gml
+opera_ads_get_gdpr()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -467,19 +481,21 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">var consent = opera_ads_get_gdpr();
-show_debug_message("GDPR consent: " + consent);</code></pre>
+<p><code>gml
+var consent = opera_ads_get_gdpr();
+show_debug_message("GDPR consent: " + consent);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_get_gdpr_applies">opera_ads_get_gdpr_applies</h1>
-<p>Returns whether GDPR currently applies for the stored privacy state.</p>
+<p>This function returns whether GDPR currently applies for the stored privacy state.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_get_gdpr_applies()</code></pre>
+<p><code>gml
+opera_ads_get_gdpr_applies()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -490,21 +506,23 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_get_gdpr_applies())
+<p><code>gml
+if (opera_ads_get_gdpr_applies())
 {
     show_debug_message("GDPR applies");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_get_us_privacy">opera_ads_get_us_privacy</h1>
-<p>Returns the currently stored US privacy string.</p>
+<p>This function returns the currently stored US privacy string.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_get_us_privacy()</code></pre>
+<p><code>gml
+opera_ads_get_us_privacy()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -515,18 +533,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">show_debug_message(opera_ads_get_us_privacy());</code></pre>
+<p><code>gml
+show_debug_message(opera_ads_get_us_privacy());</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_get_coppa">opera_ads_get_coppa</h1>
-<p>Returns whether COPPA treatment is currently enabled.</p>
+<p>This function returns whether COPPA treatment is currently enabled.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_get_coppa()</code></pre>
+<p><code>gml
+opera_ads_get_coppa()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -537,21 +557,23 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_get_coppa())
+<p><code>gml
+if (opera_ads_get_coppa())
 {
     show_debug_message("COPPA is enabled");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_interstitial_set_placement_id">opera_ads_interstitial_set_placement_id</h1>
-<p>Sets a custom placement ID for interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
+<p>This function sets a custom placement ID for interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_set_placement_id(placement_id)</code></pre>
+<p><code>gml
+opera_ads_interstitial_set_placement_id(placement_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -578,19 +600,21 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_set_placement_id("your_custom_interstitial_id");</code></pre>
+<p><code>gml
+opera_ads_interstitial_set_placement_id("your_custom_interstitial_id");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_interstitial_load">opera_ads_interstitial_load</h1>
-<p>Loads an interstitial ad asynchronously.</p>
+<p>This function loads an interstitial ad asynchronously.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_load(callback)</code></pre>
+<p><code>gml
+opera_ads_interstitial_load(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -604,7 +628,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -643,27 +667,30 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_load(function(success, error_message)
+<p>```gml
+opera_ads_interstitial_load(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Interstitial load failed: " + string(error_message));
         return;
-    }
-
-    show_debug_message("Interstitial loaded");
-});</code></pre>
+    }</p>
+<pre><code>show_debug_message("Interstitial loaded");
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_interstitial_is_ad_valid">opera_ads_interstitial_is_ad_valid</h1>
-<p>Returns whether a loaded interstitial ad is currently available and still valid for showing.</p>
+<p>This function returns whether a loaded interstitial ad is currently available and still valid for showing.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_is_ad_valid()</code></pre>
+<p><code>gml
+opera_ads_interstitial_is_ad_valid()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -674,22 +701,24 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_interstitial_is_ad_valid())
+<p><code>gml
+if (opera_ads_interstitial_is_ad_valid())
 {
     show_debug_message("Interstitial is ready");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_interstitial_show">opera_ads_interstitial_show</h1>
-<p>Shows the currently loaded interstitial ad. The callback receives event updates during the ad lifecycle.</p>
+<p>This function shows the currently loaded interstitial ad. The callback receives event updates during the ad lifecycle.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_show(callback)</code></pre>
+<p><code>gml
+opera_ads_interstitial_show(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -703,7 +732,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -736,13 +765,14 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>error_message</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Error message when the event is <a href="home.html#operaadscallbackeventinterstitial">OperaAdsCallbackEventInterstitial</a>.Failed. This argument may be omitted for other events.</td>
+<td>Error message when the event is <code>OperaAdsCallbackEventInterstitial.Failed</code>. This argument may be omitted for other events.</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_interstitial_is_ad_valid())
+<p>```gml
+if (opera_ads_interstitial_is_ad_valid())
 {
     opera_ads_interstitial_show(function(event, error_message)
     {
@@ -750,33 +780,35 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
         {
             case OperaAdsCallbackEventInterstitial.Displayed:
                 show_debug_message("Interstitial displayed");
-            break;
+            break;</p>
+<pre><code>        case OperaAdsCallbackEventInterstitial.Clicked:
+            show_debug_message("Interstitial clicked");
+        break;
 
-            case OperaAdsCallbackEventInterstitial.Clicked:
-                show_debug_message("Interstitial clicked");
-            break;
+        case OperaAdsCallbackEventInterstitial.Dismissed:
+            show_debug_message("Interstitial dismissed");
+        break;
 
-            case OperaAdsCallbackEventInterstitial.Dismissed:
-                show_debug_message("Interstitial dismissed");
-            break;
-
-            case OperaAdsCallbackEventInterstitial.Failed:
-                show_debug_message("Interstitial failed: " + string(error_message));
-            break;
-        }
-    });
-}</code></pre>
+        case OperaAdsCallbackEventInterstitial.Failed:
+            show_debug_message("Interstitial failed: " + string(error_message));
+        break;
+    }
+});
+</code></pre>
+<p>}
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_interstitial_destroy">opera_ads_interstitial_destroy</h1>
-<p>Destroys the currently loaded interstitial ad and clears its internal reference.</p>
+<p>This function destroys the currently loaded interstitial ad and clears its internal reference.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_destroy()</code></pre>
+<p><code>gml
+opera_ads_interstitial_destroy()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -787,18 +819,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_interstitial_destroy();</code></pre>
+<p><code>gml
+opera_ads_interstitial_destroy();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_set_placement_id">opera_ads_rewarded_set_placement_id</h1>
-<p>Sets a custom placement ID for rewarded ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
+<p>This function sets a custom placement ID for rewarded ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_placement_id(placement_id)</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_placement_id(placement_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -825,19 +859,21 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_placement_id("your_custom_rewarded_id");</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_placement_id("your_custom_rewarded_id");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_load">opera_ads_rewarded_load</h1>
-<p>Loads a rewarded ad asynchronously.</p>
+<p>This function loads a rewarded ad asynchronously.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_load(callback)</code></pre>
+<p><code>gml
+opera_ads_rewarded_load(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -851,7 +887,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -890,27 +926,30 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_load(function(success, error_message)
+<p>```gml
+opera_ads_rewarded_load(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Rewarded load failed: " + string(error_message));
         return;
-    }
-
-    show_debug_message("Rewarded loaded");
-});</code></pre>
+    }</p>
+<pre><code>show_debug_message("Rewarded loaded");
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_is_ad_valid">opera_ads_rewarded_is_ad_valid</h1>
-<p>Returns whether a loaded rewarded ad is currently available and still valid for showing.</p>
+<p>This function returns whether a loaded rewarded ad is currently available and still valid for showing.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_is_ad_valid()</code></pre>
+<p><code>gml
+opera_ads_rewarded_is_ad_valid()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -921,22 +960,24 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_rewarded_is_ad_valid())
+<p><code>gml
+if (opera_ads_rewarded_is_ad_valid())
 {
     show_debug_message("Rewarded ad ready");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_show">opera_ads_rewarded_show</h1>
-<p>Shows the currently loaded rewarded ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.</p>
+<p>This function shows the currently loaded rewarded ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_show(callback)</code></pre>
+<p><code>gml
+opera_ads_rewarded_show(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -950,7 +991,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -983,23 +1024,24 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>reward_type</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Reward type string when the event is <a href="home.html#operaadscallbackeventrewarded">OperaAdsCallbackEventRewarded</a>.Rewarded. Omitted for other events.</td>
+<td>Reward type string when the event is <code>OperaAdsCallbackEventRewarded.Rewarded</code>. Omitted for other events.</td>
 </tr>
 <tr>
 <td>reward_amount</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>Reward amount when the event is <a href="home.html#operaadscallbackeventrewarded">OperaAdsCallbackEventRewarded</a>.Rewarded. Omitted for other events.</td>
+<td>Reward amount when the event is <code>OperaAdsCallbackEventRewarded.Rewarded</code>. Omitted for other events.</td>
 </tr>
 <tr>
 <td>error_message</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Error message when the event is <a href="home.html#operaadscallbackeventrewarded">OperaAdsCallbackEventRewarded</a>.Failed. Omitted for other events.</td>
+<td>Error message when the event is <code>OperaAdsCallbackEventRewarded.Failed</code>. Omitted for other events.</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_rewarded_is_ad_valid())
+<p>```gml
+if (opera_ads_rewarded_is_ad_valid())
 {
     opera_ads_rewarded_show(function(event, reward_type, reward_amount, error_message)
     {
@@ -1007,37 +1049,39 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
         {
             case OperaAdsCallbackEventRewarded.Displayed:
                 show_debug_message("Rewarded displayed");
-            break;
+            break;</p>
+<pre><code>        case OperaAdsCallbackEventRewarded.Clicked:
+            show_debug_message("Rewarded clicked");
+        break;
 
-            case OperaAdsCallbackEventRewarded.Clicked:
-                show_debug_message("Rewarded clicked");
-            break;
+        case OperaAdsCallbackEventRewarded.Dismissed:
+            show_debug_message("Rewarded dismissed");
+        break;
 
-            case OperaAdsCallbackEventRewarded.Dismissed:
-                show_debug_message("Rewarded dismissed");
-            break;
+        case OperaAdsCallbackEventRewarded.Rewarded:
+            show_debug_message("Reward granted: " + string(reward_type) + " / " + string(reward_amount));
+        break;
 
-            case OperaAdsCallbackEventRewarded.Rewarded:
-                show_debug_message("Reward granted: " + string(reward_type) + " / " + string(reward_amount));
-            break;
-
-            case OperaAdsCallbackEventRewarded.Failed:
-                show_debug_message("Rewarded failed: " + string(error_message));
-            break;
-        }
-    });
-}</code></pre>
+        case OperaAdsCallbackEventRewarded.Failed:
+            show_debug_message("Rewarded failed: " + string(error_message));
+        break;
+    }
+});
+</code></pre>
+<p>}
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_destroy">opera_ads_rewarded_destroy</h1>
-<p>Destroys the currently loaded rewarded ad and clears its internal reference.</p>
+<p>This function destroys the currently loaded rewarded ad and clears its internal reference.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_destroy()</code></pre>
+<p><code>gml
+opera_ads_rewarded_destroy()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1048,18 +1092,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_destroy();</code></pre>
+<p><code>gml
+opera_ads_rewarded_destroy();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_set_scene">opera_ads_rewarded_set_scene</h1>
-<p>Sets the scene ID for rewarded ads. This is used for analytics and reporting purposes. Android only.</p>
+<p>This function sets the scene ID for rewarded ads. This is used for analytics and reporting purposes. Android only.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_scene(scene_id)</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_scene(scene_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1086,18 +1132,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_scene("level_complete");</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_scene("level_complete");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_set_reward_ssv_options">opera_ads_rewarded_set_reward_ssv_options</h1>
-<p>Sets server-side verification (SSV) options for rewarded ads. This enables server-to-server reward validation. Android only.</p>
+<p>This function sets server-side verification (SSV) options for rewarded ads. This enables server-to-server reward validation. Android only.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_reward_ssv_options(user_id, custom_data)</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_reward_ssv_options(user_id, custom_data)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1129,18 +1177,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_set_reward_ssv_options("user_12345", "extra_data");</code></pre>
+<p><code>gml
+opera_ads_rewarded_set_reward_ssv_options("user_12345", "extra_data");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_set_placement_id">opera_ads_rewarded_interstitial_set_placement_id</h1>
-<p>Sets a custom placement ID for rewarded interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
+<p>This function sets a custom placement ID for rewarded interstitial ads. This overrides the default placement ID configured in the extension options. Must be called before loading the ad.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_placement_id(placement_id)</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_placement_id(placement_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1167,19 +1217,21 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_placement_id("your_custom_rewarded_interstitial_id");</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_placement_id("your_custom_rewarded_interstitial_id");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_load">opera_ads_rewarded_interstitial_load</h1>
-<p>Loads a rewarded interstitial ad asynchronously.</p>
+<p>This function loads a rewarded interstitial ad asynchronously.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_load(callback)</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_load(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1193,7 +1245,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -1232,27 +1284,30 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_load(function(success, error_message)
+<p>```gml
+opera_ads_rewarded_interstitial_load(function(success, error_message)
 {
     if (!success)
     {
         show_debug_message("Rewarded interstitial load failed: " + string(error_message));
         return;
-    }
-
-    show_debug_message("Rewarded interstitial loaded");
-});</code></pre>
+    }</p>
+<pre><code>show_debug_message("Rewarded interstitial loaded");
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_is_ad_valid">opera_ads_rewarded_interstitial_is_ad_valid</h1>
-<p>Returns whether a loaded rewarded interstitial ad is currently available and still valid for showing.</p>
+<p>This function returns whether a loaded rewarded interstitial ad is currently available and still valid for showing.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_is_ad_valid()</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_is_ad_valid()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1263,22 +1318,24 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_rewarded_interstitial_is_ad_valid())
+<p><code>gml
+if (opera_ads_rewarded_interstitial_is_ad_valid())
 {
     show_debug_message("Rewarded interstitial ready");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_show">opera_ads_rewarded_interstitial_show</h1>
-<p>Shows the currently loaded rewarded interstitial ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.</p>
+<p>This function shows the currently loaded rewarded interstitial ad. The callback receives lifecycle events, and when the ad rewards the user it also receives reward data.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_show(callback)</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_show(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1292,7 +1349,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -1325,23 +1382,24 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>reward_type</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Reward type string when the event is <a href="home.html#operaadscallbackeventrewardedinterstitial">OperaAdsCallbackEventRewardedInterstitial</a>.Rewarded. Omitted for other events.</td>
+<td>Reward type string when the event is <code>OperaAdsCallbackEventRewardedInterstitial.Rewarded</code>. Omitted for other events.</td>
 </tr>
 <tr>
 <td>reward_amount</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>Reward amount when the event is <a href="home.html#operaadscallbackeventrewardedinterstitial">OperaAdsCallbackEventRewardedInterstitial</a>.Rewarded. Omitted for other events.</td>
+<td>Reward amount when the event is <code>OperaAdsCallbackEventRewardedInterstitial.Rewarded</code>. Omitted for other events.</td>
 </tr>
 <tr>
 <td>error_message</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Error message when the event is <a href="home.html#operaadscallbackeventrewardedinterstitial">OperaAdsCallbackEventRewardedInterstitial</a>.Failed. Omitted for other events.</td>
+<td>Error message when the event is <code>OperaAdsCallbackEventRewardedInterstitial.Failed</code>. Omitted for other events.</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_rewarded_interstitial_is_ad_valid())
+<p>```gml
+if (opera_ads_rewarded_interstitial_is_ad_valid())
 {
     opera_ads_rewarded_interstitial_show(function(event, reward_type, reward_amount, error_message)
     {
@@ -1349,37 +1407,39 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
         {
             case OperaAdsCallbackEventRewardedInterstitial.Displayed:
                 show_debug_message("Rewarded interstitial displayed");
-            break;
+            break;</p>
+<pre><code>        case OperaAdsCallbackEventRewardedInterstitial.Clicked:
+            show_debug_message("Rewarded interstitial clicked");
+        break;
 
-            case OperaAdsCallbackEventRewardedInterstitial.Clicked:
-                show_debug_message("Rewarded interstitial clicked");
-            break;
+        case OperaAdsCallbackEventRewardedInterstitial.Dismissed:
+            show_debug_message("Rewarded interstitial dismissed");
+        break;
 
-            case OperaAdsCallbackEventRewardedInterstitial.Dismissed:
-                show_debug_message("Rewarded interstitial dismissed");
-            break;
+        case OperaAdsCallbackEventRewardedInterstitial.Rewarded:
+            show_debug_message("Reward granted: " + string(reward_type) + " / " + string(reward_amount));
+        break;
 
-            case OperaAdsCallbackEventRewardedInterstitial.Rewarded:
-                show_debug_message("Reward granted: " + string(reward_type) + " / " + string(reward_amount));
-            break;
-
-            case OperaAdsCallbackEventRewardedInterstitial.Failed:
-                show_debug_message("Rewarded interstitial failed: " + string(error_message));
-            break;
-        }
-    });
-}</code></pre>
+        case OperaAdsCallbackEventRewardedInterstitial.Failed:
+            show_debug_message("Rewarded interstitial failed: " + string(error_message));
+        break;
+    }
+});
+</code></pre>
+<p>}
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_destroy">opera_ads_rewarded_interstitial_destroy</h1>
-<p>Destroys the currently loaded rewarded interstitial ad and clears its internal reference.</p>
+<p>This function destroys the currently loaded rewarded interstitial ad and clears its internal reference.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_destroy()</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_destroy()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1390,18 +1450,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_destroy();</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_destroy();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_set_scene">opera_ads_rewarded_interstitial_set_scene</h1>
-<p>Sets the scene ID for rewarded interstitial ads. This is used for analytics and reporting purposes. Android only.</p>
+<p>This function sets the scene ID for rewarded interstitial ads. This is used for analytics and reporting purposes. Android only.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_scene(scene_id)</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_scene(scene_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1428,18 +1490,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_scene("bonus_round");</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_scene("bonus_round");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_rewarded_interstitial_set_reward_ssv_options">opera_ads_rewarded_interstitial_set_reward_ssv_options</h1>
-<p>Sets server-side verification (SSV) options for rewarded interstitial ads. This enables server-to-server reward validation. Android only.</p>
+<p>This function sets server-side verification (SSV) options for rewarded interstitial ads. This enables server-to-server reward validation. Android only.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_reward_ssv_options(user_id, custom_data)</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_reward_ssv_options(user_id, custom_data)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1471,18 +1535,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_rewarded_interstitial_set_reward_ssv_options("user_12345", "extra_data");</code></pre>
+<p><code>gml
+opera_ads_rewarded_interstitial_set_reward_ssv_options("user_12345", "extra_data");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_app_open_set_placement_id">opera_ads_app_open_set_placement_id</h1>
-<p>Sets a custom placement ID for app open ads. This overrides the default placement ID configured in the extension options. Must be called before enabling app open ads.</p>
+<p>This function sets a custom placement ID for app open ads. This overrides the default placement ID configured in the extension options. Must be called before enabling app open ads.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_set_placement_id(placement_id)</code></pre>
+<p><code>gml
+opera_ads_app_open_set_placement_id(placement_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1509,19 +1575,21 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_set_placement_id("your_custom_app_open_id");</code></pre>
+<p><code>gml
+opera_ads_app_open_set_placement_id("your_custom_app_open_id");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_app_open_enable">opera_ads_app_open_enable</h1>
-<p>Enables app open ads. After being enabled, the extension manages app open loading and showing automatically when the application returns to the foreground.</p>
+<p>This function enables app open ads. After being enabled, the extension manages app open loading and showing automatically when the application returns to the foreground.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_enable(callback)</code></pre>
+<p><code>gml
+opera_ads_app_open_enable(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1535,7 +1603,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -1568,45 +1636,48 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>error_message</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Error message when the event is <a href="home.html#operaadscallbackeventappopen">OperaAdsCallbackEventAppOpen</a>.LoadFailed or <a href="home.html#operaadscallbackeventappopen">OperaAdsCallbackEventAppOpen</a>.Failed. Omitted for other events.</td>
+<td>Error message when the event is <code>OperaAdsCallbackEventAppOpen.LoadFailed</code> or <code>OperaAdsCallbackEventAppOpen.Failed</code>. Omitted for other events.</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_enable(function(event, error_message)
+<p>```gml
+opera_ads_app_open_enable(function(event, error_message)
 {
     switch (event)
     {
         case OperaAdsCallbackEventAppOpen.Loaded:
             show_debug_message("App open loaded");
-        break;
+        break;</p>
+<pre><code>    case OperaAdsCallbackEventAppOpen.Displayed:
+        show_debug_message("App open displayed");
+    break;
 
-        case OperaAdsCallbackEventAppOpen.Displayed:
-            show_debug_message("App open displayed");
-        break;
+    case OperaAdsCallbackEventAppOpen.Dismissed:
+        show_debug_message("App open dismissed");
+    break;
 
-        case OperaAdsCallbackEventAppOpen.Dismissed:
-            show_debug_message("App open dismissed");
-        break;
-
-        case OperaAdsCallbackEventAppOpen.LoadFailed:
-        case OperaAdsCallbackEventAppOpen.Failed:
-            show_debug_message("App open error: " + string(error_message));
-        break;
-    }
-});</code></pre>
+    case OperaAdsCallbackEventAppOpen.LoadFailed:
+    case OperaAdsCallbackEventAppOpen.Failed:
+        show_debug_message("App open error: " + string(error_message));
+    break;
+}
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_app_open_disable">opera_ads_app_open_disable</h1>
-<p>Disables app open ads and clears any currently managed app open ad instance.</p>
+<p>This function disables app open ads and clears any currently managed app open ad instance.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_disable()</code></pre>
+<p><code>gml
+opera_ads_app_open_disable()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1617,18 +1688,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_disable();</code></pre>
+<p><code>gml
+opera_ads_app_open_disable();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_app_open_is_enabled">opera_ads_app_open_is_enabled</h1>
-<p>Returns whether app open ads are currently enabled.</p>
+<p>This function returns whether app open ads are currently enabled.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_app_open_is_enabled()</code></pre>
+<p><code>gml
+opera_ads_app_open_is_enabled()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1639,21 +1712,23 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_app_open_is_enabled())
+<p><code>gml
+if (opera_ads_app_open_is_enabled())
 {
     show_debug_message("App open ads enabled");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_set_placement_id">opera_ads_banner_set_placement_id</h1>
-<p>Sets a custom placement ID for banner ads. This overrides the default placement ID configured in the extension options. Must be called before loading the banner.</p>
+<p>This function sets a custom placement ID for banner ads. This overrides the default placement ID configured in the extension options. Must be called before loading the banner.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_set_placement_id(placement_id)</code></pre>
+<p><code>gml
+opera_ads_banner_set_placement_id(placement_id)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1680,19 +1755,21 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_set_placement_id("your_custom_banner_id");</code></pre>
+<p><code>gml
+opera_ads_banner_set_placement_id("your_custom_banner_id");</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_load">opera_ads_banner_load</h1>
-<p>Loads a banner ad asynchronously.</p>
+<p>This function loads a banner ad asynchronously.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_load(callback)</code></pre>
+<p><code>gml
+opera_ads_banner_load(callback)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1706,7 +1783,7 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>callback</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td></td>
+<td>The function to be called upon completion.</td>
 </tr>
 </tbody>
 </table>
@@ -1739,44 +1816,47 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 <tr>
 <td>error_message</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Error message when the event is <a href="home.html#operaadscallbackeventbanner">OperaAdsCallbackEventBanner</a>.LoadFailed. Omitted for other events.</td>
+<td>Error message when the event is <code>OperaAdsCallbackEventBanner.LoadFailed</code>. Omitted for other events.</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_load(function(event, error_message)
+<p>```gml
+opera_ads_banner_load(function(event, error_message)
 {
     switch (event)
     {
         case OperaAdsCallbackEventBanner.Loaded:
             show_debug_message("Banner loaded");
-        break;
+        break;</p>
+<pre><code>    case OperaAdsCallbackEventBanner.Impression:
+        show_debug_message("Banner impression");
+    break;
 
-        case OperaAdsCallbackEventBanner.Impression:
-            show_debug_message("Banner impression");
-        break;
+    case OperaAdsCallbackEventBanner.Clicked:
+        show_debug_message("Banner clicked");
+    break;
 
-        case OperaAdsCallbackEventBanner.Clicked:
-            show_debug_message("Banner clicked");
-        break;
-
-        case OperaAdsCallbackEventBanner.LoadFailed:
-            show_debug_message("Banner load failed: " + string(error_message));
-        break;
-    }
-});</code></pre>
+    case OperaAdsCallbackEventBanner.LoadFailed:
+        show_debug_message("Banner load failed: " + string(error_message));
+    break;
+}
+</code></pre>
+<p>});
+```</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_is_ad_valid">opera_ads_banner_is_ad_valid</h1>
-<p>Returns whether a banner ad is currently loaded and still valid.</p>
+<p>This function returns whether a banner ad is currently loaded and still valid.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_is_ad_valid()</code></pre>
+<p><code>gml
+opera_ads_banner_is_ad_valid()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1787,21 +1867,23 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_banner_is_ad_valid())
+<p><code>gml
+if (opera_ads_banner_is_ad_valid())
 {
     show_debug_message("Banner is valid");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_show">opera_ads_banner_show</h1>
-<p>Shows the loaded banner ad at the given screen position. If the banner has already been attached, its position is updated and it is made visible.</p>
+<p>This function shows the loaded banner ad at the given screen position. If the banner has already been attached, its position is updated and it is made visible.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_show(position)</code></pre>
+<p><code>gml
+opera_ads_banner_show(position)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1828,18 +1910,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_show(OperaAdsBannerPosition.BottomCenter);</code></pre>
+<p><code>gml
+opera_ads_banner_show(OperaAdsBannerPosition.BottomCenter);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_move">opera_ads_banner_move</h1>
-<p>Moves the currently attached banner ad to a new screen position without reloading it.</p>
+<p>This function moves the currently attached banner ad to a new screen position without reloading it.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_move(position)</code></pre>
+<p><code>gml
+opera_ads_banner_move(position)</code></p>
 </blockquote>
 <table>
 <thead>
@@ -1866,18 +1950,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_move(OperaAdsBannerPosition.TopCenter);</code></pre>
+<p><code>gml
+opera_ads_banner_move(OperaAdsBannerPosition.TopCenter);</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_destroy">opera_ads_banner_destroy</h1>
-<p>Destroys the current banner ad, removes it from the view hierarchy, and clears its loaded state.</p>
+<p>This function destroys the current banner ad, removes it from the view hierarchy, and clears its loaded state.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_destroy()</code></pre>
+<p><code>gml
+opera_ads_banner_destroy()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1888,18 +1974,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_destroy();</code></pre>
+<p><code>gml
+opera_ads_banner_destroy();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_hide">opera_ads_banner_hide</h1>
-<p>Hides the currently attached banner ad without destroying it.</p>
+<p>This function hides the currently attached banner ad without destroying it.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_hide()</code></pre>
+<p><code>gml
+opera_ads_banner_hide()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1910,18 +1998,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_hide();</code></pre>
+<p><code>gml
+opera_ads_banner_hide();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_unhide">opera_ads_banner_unhide</h1>
-<p>Makes a previously hidden banner visible again. If the banner became invalid while hidden, it may need to be loaded again.</p>
+<p>This function makes a previously hidden banner visible again. If the banner became invalid while hidden, it may need to be loaded again.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_unhide()</code></pre>
+<p><code>gml
+opera_ads_banner_unhide()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1932,18 +2022,20 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_unhide();</code></pre>
+<p><code>gml
+opera_ads_banner_unhide();</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="opera_ads_banner_is_visible">opera_ads_banner_is_visible</h1>
-<p>Returns whether the banner is currently attached and visible on screen.</p>
+<p>This function returns whether the banner is currently attached and visible on screen.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">opera_ads_banner_is_visible()</code></pre>
+<p><code>gml
+opera_ads_banner_is_visible()</code></p>
 </blockquote>
 <p><br></p>
 <p><br></p>
@@ -1954,10 +2046,11 @@ show_debug_message("GDPR consent: " + consent);</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-gml">if (opera_ads_banner_is_visible())
+<p><code>gml
+if (opera_ads_banner_is_visible())
 {
     show_debug_message("Banner visible");
-}</code></pre>
+}</code></p>
 <p><br></p>
 <p><br></p>
 <hr />
